@@ -16,8 +16,8 @@ if(!defined("DB_USER")){
     define("DB_USER", "root");
 } 
 
-if(!defined("DB_PWD")){
-    define("DB_PWD", "");
+if(!defined("DB_PASS")){
+    define("DB_PASS", "");
 }
 
 ?>
