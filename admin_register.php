@@ -3,7 +3,7 @@ include 'db_connect.php'; // Include your database connection script
 session_start(); // Start the session
 
 // Define a hardcoded admin key (change this to a unique value for security)
-define('ADMIN_KEY', '2707'); // Replace with your chosen key
+define('ADMIN_KEY', '1910'); // Replace with your chosen key
 
 // Initialize variables
 $admin_key = '';
