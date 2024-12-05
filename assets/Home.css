@@ -3,20 +3,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 body {
-    background-color: hsla(200,40%,30%,4);
+    background-color: rgb(239,236,185);
     color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-image:   
-    url('https://genshindle.com/data/gallery/backgrounds/bg-anemo.webp');
-    background-position:  0 20%, 0 100%, 0 50%, 0 100%, 0 0;
-    background-size: 2500px, 800px, 500px 200px, 1000px, 400px 260px;  
+    min-height: 100vh;  
 }
     @keyframes para {100% {
         background-position:  -5000px 20%, -800px 95%, 500px 50%,

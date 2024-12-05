@@ -3,7 +3,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Website Header</title>
@@ -12,7 +12,7 @@
 <body>
 <nav>
     <ul>
-        <?php if (isset($_SESSION['user_id'])): ?>
+        <?php if (isset($_SESSION['session_id'])): ?>
         <?php endif; ?>
     </ul>
 </nav>

@@ -2,24 +2,24 @@
 session_start();
 include 'db_connect.php';
 
-// Redirect to login page if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
+// Only open this page when the user session is present
+if (!isset($_SESSION['session_id'])) {
     header('Location: login.php');
     exit;
 }
 
-// Handle new post creation
+// Create new post
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $module_id = $_POST['module_id'];
+    $subject_id = $_POST['subject_id'];
 
-    $query = "INSERT INTO posts (title, content, module_id, user_id, created_at) VALUES (:title, :content, :module_id, :user_id, NOW())";
+    $query = "INSERT INTO posts (title, content, subject_id, user_id, create_time) VALUES (:title, :content, :subject_id, :user_id, NOW())";
     $stmt = $pdo->prepare($query);
     $stmt->bindValue(':title', $title);
     $stmt->bindValue(':content', $content);
-    $stmt->bindValue(':module_id', $module_id);
-    $stmt->bindValue(':user_id', $_SESSION['user_id']);
+    $stmt->bindValue(':subject_id', $subject_id);
+    $stmt->bindValue(':user_id', $_SESSION['session_id']);
 
     try {
         $stmt->execute();
@@ -30,32 +30,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Initialize filters
-$category = isset($_GET['category']) && $_GET['category'] !== 'all' ? $_GET['category'] : null;
+// Filters by filterOptions, date, and keyword
+$filterOptions = isset($_GET['filterOptions']) && $_GET['filterOptions'] !== 'all' ? $_GET['filterOptions'] : null;
 $date = isset($_GET['date']) ? $_GET['date'] : null;
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : null;
 
-// Construct query to fetch posts with filters
-$query = "SELECT posts.*, modules.name AS module_name FROM posts 
-          LEFT JOIN modules ON posts.module_id = modules.id WHERE 1=1";
+// Fetch data according to subjects and filter options
+$query = "SELECT posts.*, subject_name as subject_name FROM posts 
+          LEFT JOIN subject ON subject_id WHERE 1 = 1";
 $filters = [];
 
-if ($category) {
-    $query .= " AND category = :category";
-    $filters[':category'] = $category;
+if ($filterOptions) {
+    $query .= " AND filterOptions = :filterOptions";
+    $filters[':filterOptions'] = $filterOptions;
 }
 
 if ($date) {
-    $query .= " AND DATE(posts.created_at) = :date";
+    $query .= " AND DATE(creation_date) = :date";
     $filters[':date'] = $date;
 }
 
 if ($keyword) {
-    $query .= " AND (posts.title LIKE :keyword OR posts.content LIKE :keyword)";
+    $query .= " AND (title LIKE :keyword OR content LIKE :keyword)";
     $filters[':keyword'] = '%' . $keyword . '%';
 }
 
-$query .= " ORDER BY posts.created_at DESC";
+$query .= " ORDER BY posts.creation_date DESC";
 
 // Execute the query with filters
 try {
@@ -75,32 +75,10 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>User Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <style>
-       body{
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: top;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, Helvetica;
-            letter-spacing: 0.02em;
-            font-weight: 400;   
-            -webkit-font-smoothing: antialiased; 
-            height: 100%;/* max-height: 600px; */
-            background-color: hsla(200,40%,30%,4);
-            background-image:   
-            url('https://genshindle.com/data/gallery/backgrounds/bg-anemo.webp');
-            
-            background-position:  0 20%, 0 100%, 0 50%, 0 100%, 0 0;
-            background-size: 2500px, 800px, 500px 200px, 1000px, 400px 260px;  
-        }
-        @keyframes para {100% {
-            background-position:  -5000px 20%, -800px 95%, 500px 50%,
-            1000px 100%, 400px 0;
-        }
-    }
+      
     input[type="date"] {
         padding: 8px ;
         border-radius: 8px;
@@ -109,11 +87,6 @@ try {
 
     </style>
     <script>
-        function toggleFilterForm() {
-            const filterForm = document.getElementById('filterForm');
-            filterForm.style.display = filterForm.style.display === 'block' ? 'none' : 'block';
-        }
-
         function deletePost(postId) {
             if (confirm('Are you sure you want to delete this post?')) {
                 fetch('delete_post.php', {
@@ -142,8 +115,8 @@ try {
         <div class="welcome">
             <h1>
                 <?php
-                if (isset($_SESSION['username'])) {
-                    echo "Welcome to Dashboard, <strong>" . htmlspecialchars($_SESSION['username']) . "</strong>!";
+                if (isset($_SESSION['session_username'])) {
+                    echo "Welcome to Dashboard, <strong>" . htmlspecialchars($_SESSION['session_username']) . "</strong>!";
                 } else {
                     echo "You are not logged in.";
                 }
@@ -151,35 +124,39 @@ try {
             </h1>
         </div>
 
-        <!-- Action buttons -->
+        <!-- Buttons -->
         <div class="action-buttons">
-            <a href="Home.php" class="btn">Home</a>
-            <a href="list_posts.php" class="btn">Create New Post</a>
-            <a href="mailto:imestellia@gmail.com" class="btn">Contact Admin</a>
+            <a href="homepage.php" class="button">Home</a>
+            <a href="list_posts.php" class="button">Create New Post</a>
+            <a href="mailto:imestellia@gmail.com" class="button">Contact Admin</a>
         </div>
+        
+        <!--Toggle the filter form visibility -->
+        <script>
+        function toggleFilterMenu() {
+            const filterForm = document.getElementById('filterForm');
+            filterForm.style.display = filterForm.style.display === 'block' ? 'none' : 'block';
+        }
+        </script>
 
-        <!-- Filter Button and Form -->
-        <div class="flex--item">
-            <button class="s-btn s-btn__outlined s-btn__sm s-btn__icon ws-nowrap btn" onclick="toggleFilterForm()" role="button" aria-expanded="false">
-                <svg aria-hidden="true" class="svg-icon iconFilter" width="18" height="18" viewBox="0 0 18 18">
-                    <path d="M2 4h14v2H2zm2 4h10v2H4zm8 4H6v2h6z"></path>
-                </svg>
-                Filter
-            </button>
+        <!--Filter-->
+        <div class="filter-menu">
+            <button class="button" onclick="toggleFilterMenu()"><i class="bi bi-filter-left"></i>Filter</button>
+    
         </div>
 
         <!-- Filter Form -->
         <div id="filterForm" class="filter-form" style="display:none;">
-            <h3>Filter Options</h3>
+            <h3>Filter</h3>
             <form action="index.php" method="GET">
                 <div class="filter-option">
-                    <label for="category">Category:</label>
-                    <select name="category" id="category">
+                    <label for="filterOptions">Filter options:</label>
+                    <select name="filterOptions" id="filterOptions">
                         <option value="all">All</option>
-                        <option value="category1">Nearest</option>
-                        <option value="category2">Recent activity</option>
-                        <option value="category3">Most Frequent</option>
-                        <option value="category4">Answers</option>
+                        <option value="filterOptions1">Nearest</option>
+                        <option value="filterOptions2">Recent activity</option>
+                        <option value="filterOptions3">Most Frequent</option>
+                        <option value="filterOptions4">Answers</option>
                     </select>
                 </div>
                 <div class="filter-option">
@@ -187,7 +164,7 @@ try {
                     <input type="date" name="date" id="date">
                 </div>
                 <div class="filter-option">
-                    <label for="keyword">Keyword Content:</label>
+                    <label for="keyword">Keyword:</label>
                     <input type="text" name="keyword" id="keyword" placeholder="Enter keyword...">
                 </div>
                 <input type="submit" class="btn" value="Apply Filters">
@@ -205,10 +182,10 @@ try {
                     echo "<div id='post-" . $post['id'] . "' class='post'>";
                     echo "<h2>Poster: <a href='view_post.php?post_id=" . $post['id'] . "'>" . htmlspecialchars($post['title']) . "</a></h2>";
                     echo "<p>Post Content: " . htmlspecialchars($post['content']) . "</p>";
-                    echo "<p>Module: " . htmlspecialchars($post['module_name']) . "</p>"; // Display module name instead of ID
+                    echo "<p>Module: " . htmlspecialchars($post['subject_name']) . "</p>"; // Display subject name instead of ID
 
                     // Display the created_at timestamp
-                    $createdAt = new DateTime($post['created_at']);
+                    $creationDate = new DateTime($post['creation_date']);
                     echo "<div class='post-meta'>Posted on: " . $createdAt->format('F j, Y, g:i a') . "</div>";
 
                     // Calculate if 10 minutes have passed since post creation

@@ -3,20 +3,20 @@ session_start();
 include 'db_connect.php'; // Ensure this file contains your database connection setup
 
 // Fetch posts
-$module = $_GET['module'] ?? null; // Use null if 'module' is not set
+$subject = $_GET['subject'] ?? null; // Use null if 'subject' is not set
 
 // Initialize filters
-$category = isset($_GET['category']) && $_GET['category'] !== 'all' ? $_GET['category'] : null;
+$filterOptions = isset($_GET['filterOptions']) && $_GET['filterOptions'] !== 'all' ? $_GET['filterOptions'] : null;
 $date = isset($_GET['date']) ? $_GET['date'] : null;
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : null;
 
 // Add filters to query
-$query = "SELECT posts.*, modules.name AS module FROM posts LEFT JOIN modules ON posts.module_id = modules.id WHERE 1=1";
+$query = "SELECT posts.*, subjects.name AS subject FROM posts LEFT JOIN subjects ON posts.subject_id = subjects.id WHERE 1=1";
 $filters = [];
 
-if ($category) {
-    $query .= " AND category = :category";
-    $filters[':category'] = $category;
+if ($filterOptions) {
+    $query .= " AND filterOptions = :filterOptions";
+    $filters[':filterOptions'] = $filterOptions;
 }
 
 if ($date) {
@@ -211,7 +211,7 @@ try {
                         </a>
                     </h2>
                     <p>Post Content: <?php echo htmlspecialchars($post['content']); ?></p>
-                    <p>Module: <?php echo isset($post['module']) ? htmlspecialchars($post['module']) : 'Not assigned'; ?></p>
+                    <p>Module: <?php echo isset($post['subject']) ? htmlspecialchars($post['subject']) : 'Not assigned'; ?></p>
                     <div class="post-meta">
                         Posted on: <?php echo (new DateTime($post['created_at']))->format('F j, Y, g:i a'); ?>
                     </div>

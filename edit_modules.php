@@ -1,29 +1,29 @@
 <?php
 include 'db_connect.php'; // Database connection
 
-// Check if module IDs and action are set
-if (isset($_POST['module_ids']) && isset($_POST['action'])) {
-    $moduleIds = $_POST['module_ids'];
+// Check if subject IDs and action are set
+if (isset($_POST['subject_ids']) && isset($_POST['action'])) {
+    $subjectIds = $_POST['subject_ids'];
     $action = $_POST['action'];
 
     if ($action == 'edit') {
         // Redirect to a page for batch editing
-        header("Location: batch_edit.php?ids=" . implode(",", $moduleIds));
+        header("Location: batch_edit.php?ids=" . implode(",", $subjectIds));
         exit();
     } elseif ($action == 'delete') {
-        // Delete selected modules
-        $placeholders = implode(',', array_fill(0, count($moduleIds), '?'));
-        $query = "DELETE FROM modules WHERE id IN ($placeholders)";
+        // Delete selected subjects
+        $placeholders = implode(',', array_fill(0, count($subjectIds), '?'));
+        $query = "DELETE FROM subjects WHERE id IN ($placeholders)";
         $stmt = $pdo->prepare($query);
         
-        if ($stmt->execute($moduleIds)) {
-            header("Location: manage_modules.php?success=Selected modules deleted successfully.");
+        if ($stmt->execute($subjectIds)) {
+            header("Location: manage_subjects.php?success=Selected subjects deleted successfully.");
         } else {
-            echo "<p class='message error'>Failed to delete selected modules.</p>";
+            echo "<p class='message error'>Failed to delete selected subjects.</p>";
         }
     }
 } else {
-    echo "<p class='message error'>No modules selected or action specified.</p>";
+    echo "<p class='message error'>No subjects selected or action specified.</p>";
 } 
 ?>
 
@@ -61,13 +61,13 @@ if (isset($_POST['module_ids']) && isset($_POST['action'])) {
     <div class="container">
         <h1>Edit Module</h1>
 
-        <!-- Form to edit the module -->
+        <!-- Form to edit the subject -->
         <form method="POST" action="">
             <label for="name">Module Name</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($module['name']); ?>" required>
+            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($subject['name']); ?>" required>
 
             <label for="description">Module Description</label>
-            <textarea id="description" name="description" required><?php echo htmlspecialchars($module['description']); ?></textarea>
+            <textarea id="description" name="description" required><?php echo htmlspecialchars($subject['description']); ?></textarea>
 
             <button type="submit">Save Changes</button>
         </form>

@@ -1,6 +1,6 @@
 <?php 
 session_start(); // Start the session
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['session_id'])) {
     header('Location: login.php'); // Redirect to login if not logged in
     exit;
 }
@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 // Include the PDO connection file
 include 'db_connect.php';
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['session_id'];
 $error = ""; // Variable to store error messages
 
 if (isset($_POST['update'])) {
@@ -108,7 +108,7 @@ if (isset($_POST['update'])) {
             <p style="color:red;"><?php echo $error; ?></p>
         <?php endif; ?>
        <div class="submit">
-        <a href="Home.php" class="back">Back to Home</a>
+        <a href="homepage.php" class="back">Back to Home</a>
     </div>
 
     <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
