@@ -3,7 +3,7 @@ session_start();
 include 'db_connect.php';
 
 // Redirect to login page if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['session_id'])) {
     header('Location: login.php');
     exit;
 }
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['session_id'];
 
     // Handle file upload if an image is provided
     $image_path = null;
@@ -127,8 +127,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="form-group">
-                <label for="module_id">Module:</label>
-                <select name="module_id" id="module_id" required>
+                <label for="subject_id">Module:</label>
+                <select name="subject_id" id="subject_id" required>
                     <option value="1">GENERAL</option>
                     <option value="14">HTML&JAVA</option>
                     <option value="12">MYSQL</option>

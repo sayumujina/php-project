@@ -63,29 +63,29 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
-        .module-list {
+        .subject-list {
             list-style-type: none;
             padding: 0;
         }
-        .module-list li {
+        .subject-list li {
             margin-bottom: 10px;
         }
-        .module-list a {
+        .subject-list a {
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        .module-list a.edit {
+        .subject-list a.edit {
             color: #4a4a4a;
         }
-        .module-list a.edit:hover {
+        .subject-list a.edit:hover {
             color: #87ceeb; /* Sky Blue */
             cursor: pointer;
         }
-        .module-list a.delete {
+        .subject-list a.delete {
             color: #f44336; /* Red */
         }
-        .module-list a.delete:hover {
+        .subject-list a.delete:hover {
             color: #ff7961; /* Lighter Red */
             cursor: pointer;
         }
@@ -112,25 +112,20 @@
 
     <div class="container">
         <h1>Manage Modules</h1>
-        <a href="add_module.php" class="btn">Add New Module</a>
+        <a href="add_subject.php" class="btn">Add New Module</a>
 
         <!-- Form for batch edit/delete -->
-        <form method="POST" action="edit_modules.php">
-            <ul class="module-list">
+        <form method="POST" action="edit_subjects.php">
+            <ul class="subject-list">
                 <?php
-                // Sample module data for testing (replace with actual database fetch)
-                $modules = [
-                    ['id' => 1 , 'name' => 'GENERAL'],
-                    ['id' => 14, 'name' => 'HTML'],
-                    ['id' => 12, 'name' => 'JAVA'],
-                    ['id' => 15, 'name' => 'Space'],
-                ];
-                foreach ($modules as $module) {
+                // Fetch all subjects from the database
+                $subjects = SELECT * FROM subjects;
+                foreach ($subjects as $subject) {
                     echo "<li>";
-                    echo "<input type='checkbox' name='module_ids[]' value='{$module['id']}'> ";
-                    echo htmlspecialchars($module['name']);
-                    echo " <a href='edit_module.php?id={$module['id']}' class='edit'>Edit</a> | ";
-                    echo "<a href='javascript:void(0);' class='delete' onclick=\"confirmDelete('delete_module.php?id={$module['id']}')\">Delete</a>";
+                    echo "<input type='checkbox' name='subject_ids[]' value='{$subject['id']}'> ";
+                    echo htmlspecialchars($subject['name']);
+                    echo " <a href='edit_subject.php?id={$subject['id']}' class='edit'>Edit</a> | ";
+                    echo "<a href='javascript:void(0);' class='delete' onclick=\"confirmDelete('delete_subject.php?id={$subject['id']}')\">Delete</a>";
                     echo "</li>";
                 }
                 ?>
@@ -143,7 +138,7 @@
 
     <script>
         function confirmDelete(url) {
-            if (confirm("Are you sure you want to delete this module?")) {
+            if (confirm("Are you sure you want to delete this subject?")) {
                 window.location.href = url;
             }
         }

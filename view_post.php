@@ -3,7 +3,7 @@ session_start();
 include 'db_connect.php';
 
 // Redirect to login page if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['session_id'])) {
     header('Location: login.php');
     exit;
 }
@@ -39,7 +39,7 @@ if (isset($_GET['post_id'])) {
 // Handle reply form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $reply_content = trim($_POST['reply_content']);
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['session_id'];
 
     if (!empty($reply_content)) {
         try {

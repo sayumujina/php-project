@@ -2,33 +2,35 @@
 include 'db_connect.php'; 
 session_start(); // Start the session
 
-// Initialize variables
+// Variables
 $username = '';
 $password = '';
-$error_message = '';
+$error = '';
 
-// Process the login form when submitted
+// Process the login form
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Fetch user data from the database
+    // Fetch user using input
     try {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Check if user exists and password is correct and set session variables if true
         if ($user && password_verify($password, $user['password'])) {
-            // Password is correct, set session variables
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            header('Location: Home.php'); // Redirect to homepage after login
+            $_SESSION['session_id'] = $user['id'];
+            $_SESSION['session_username'] = $user['username'];
+            // Redirect to homepage after successful login
+            header('Location: homepage.php'); 
             exit;
+        // Display error message if user does not exist or password is incorrect
         } else {
             $error_message = "Incorrect username or password!";
         }
     } catch (PDOException $e) {
-        $error_message = "An error occurred: " . $e->getMessage();
+        $error= "An error occurred: " . $e->getMessage();
     }
 }
 ?>
@@ -38,17 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <style>
-        /* Inline styles for simplicity */
         .container { 
             width: 100%; 
             max-width: 400px; 
             padding: 20px; 
             margin: auto; 
-            text-align: center; 
+            text-align: center;
         }
         .form-group { 
             display: flex; 
@@ -61,49 +63,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-size: 16px;
             border: 1px solid #ddd; 
             border-radius: 5px; 
-            margin-left: 10px; 
-        }
-        .icon { 
-            font-size: 20px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>sayumujina</h1>
-    <div class="tab-container">
-        Login
-    </div>
-    
+    <h1>Overflow</h1>
     <div id="login-form" style="display: block;">
         <form action="login.php" method="POST">
+            <!-- Display error message if login fails -->
             <?php if (!empty($error_message)) : ?>
                 <div class="error-message"><?php echo $error_message; ?></div>
             <?php endif; ?>
             
             <div class="form-group">
-                <i class="fas fa-user icon"></i> <!-- User icon -->
-                <input type="text" class="form-control" name="username" placeholder="Username" required>
+                <i class="bi bi-person"></i><input type="text" class="form-control" name="username" placeholder="Username" required>
             </div>
             
             <div class="form-group">
-                <i class="fas fa-lock icon"></i> <!-- Password icon -->
-                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                <i class="bi bi-lock"></i><input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
             
             <button type="submit" class="btn">Login</button>
         </form>
     </div>
-
-    <br> <br>
+    
     <div class="link-container">
-        <p>Don't have an account? <a href="register.php">Register Here</a></p>
-    </div>
-    <div class="admin-link">
-        <a href="admin_login.php">Admin Login</a>
-    </div>
-    <div class="contact-link">
-        <a href="mailto:imestellia@gmail.com">Contact Admin</a>
+        <p><b>or </b><a href="register.php">Register here</a></p>
     </div>
 
 <?php include 'templates/header.php'; ?>

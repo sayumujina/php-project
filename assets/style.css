@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap');
+
 *{
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
+ 
 body {
-    font-family:'Share Tech', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #ea1212 100%);
+    font-family:'Nunito Sans', sans-serif;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -15,11 +14,7 @@ body {
     margin: 0 8px;
     padding: 20px;
     color: rgb(26, 22, 22);
-    background-color: hsla(200,40%,30%,.4);
-    background-image:
-    url('https://genshindle.com/data/gallery/backgrounds/bg-anemo.webp');
-    background-position:  0 20%, 0 100%, 0 50%, 0 100%, 0 0;
-    background-size: 2500px, 800px, 500px 200px, 1000px, 400px 260px;  
+    background-color: rgb(239,236,185);
 }
     @keyframes para {100% {
         background-position:  -5000px 20%, -800px 95%, 500px 50%,
@@ -32,15 +27,16 @@ body {
 
 .container {
     background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    padding: 60px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-style: solid;
+    border-radius: 15px;
+    border-color: rgb(174,144,106);
+    padding: 40px;
     width: 100%;
     max-width: 500px;
 }
 
 h1 {
-    color: red;
+    color: rgb(174,144,106);
     text-align: center;
     margin-bottom: 0px;
     font-weight: 800;
@@ -115,9 +111,14 @@ div {
     width: 100%;
     padding: 12px 20px;
     font-size: 16px;
+    margin-left: 20px;
     border: 1px solid #ddd;
     border-radius: 30px;
     transition: all 0.3s ease;
+}
+
+.icon{
+    size: 30px
 }
 
 .input:not([type="image" i], [type="range" i], [type="checkbox" i], [type="radio" i]) {
@@ -147,8 +148,8 @@ input[type="password" i] {
     padding: 12px 20px;
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
-    background: linear-gradient(135deg, #667eea 0%, #FF0066 100%);
+    background-color: rgba(127, 171, 112);
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 30px;
     cursor: pointer;
@@ -218,7 +219,7 @@ a:-webkit-any-link {
     text-align: center;
 }
 
-.success-message{
+.register-complete{
     color: rgb(99, 216, 59);
     font-size: 20px;
     margin-bottom: 10px;

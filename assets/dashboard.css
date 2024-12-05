@@ -1,14 +1,14 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: rgb(239,236,185);
 }
  .container {
     max-width: 800px;   
     margin: 20px auto;
     padding: 20px;
-    background:  rgba(255, 255, 255, 0.85);
-    border-radius: 8px;
+    background: #fff;
+    border: 3px solid rgb(174,144,106);
+    border-radius: 15px;
     box-shadow: 0 4px 20px rgba(10, 10, 10, 0.1);
 }
 
@@ -61,12 +61,12 @@ input[type="file"] {
     margin-bottom: 20px;
 }
 
-button {
+.button {
     padding: 12px 20px;
     font-size: 16px;
     font-weight: 600;
-    color: black;
-    background: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
+    background-color: rgba(127, 171, 112);
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 30px;
     cursor: pointer;
@@ -110,38 +110,23 @@ input[type="password"]{
     box-sizing: border-box;
 }
 
-.btn {
+.button {
     display: inline-block;
+    justify-content: center;
     padding: 10px 20px;
     font-size: 16px;
     color: black;
-    background: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
+    background-color: rgba(127, 171, 112);
+    color: rgb(255, 255, 255);
     border-radius: 30px;
     text-decoration: none;
     text-align: center;
     transition: background 0.3s ease, transform 0.3s ease;
-    margin-right: 10px;
+    margin: 10px 0px;
 }
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: center; /* Center items horizontally */
-    margin: 20px 0; /* Optional: Add some margin above and below */
-}
-
-.action-buttons .btn {
-    margin: 0 10px; /* Add space between buttons */
-    padding: 12px 20px; /* Increase padding for larger buttons */
-    font-size: 18px; /* Increase font size */
-    text-align: center; /* Center text within the button */
-    text-decoration: none; /* Remove underline */
-    background-color: #007bff; /* Button background color */
-    color: black; /* Text color */
-    transition: background-color 0.3s; /* Smooth hover effect */
 }
 
 .posts {
@@ -172,7 +157,7 @@ input[type="password"]{
 }   
 
 .filter-form {
-    display: none; /* Initially hidden */
+    display: none; /* Hide the form by default */
     padding: 15px;
     border: 1px solid #ddd;
     margin-top: 10px;
@@ -196,21 +181,6 @@ input[type="password"]{
     margin-top: 10px;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 100;
-    color: #fff;
-    background: linear-gradient(135deg, #667eea 0%, #FF0066 100%);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-button:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-}
 
 
 

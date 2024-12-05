@@ -2,8 +2,8 @@
 session_start();
 include 'db_connect.php'; // Include database connection if needed
 
-// Redirect to login page if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
+// Only open this page when the user session is present
+if (!isset($_SESSION['session_id'])) {
     header('Location: login.php');
     exit;
 }
@@ -14,9 +14,9 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -40,6 +40,6 @@ if (!isset($_SESSION['user_id'])) {
 
         </div>
     </div>
-    <?php include 'templates/HOME.php'; ?>
+    <?php include 'templates/home.php'; ?>
 </body>
 </html>
