@@ -55,17 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-position: top;
             width: 100%;
             height: 100%;
-            font-family: Arial, Helvetica;
-            letter-spacing: 0.02em;
-            font-weight: 400;
+            font-weight: 600;
             -webkit-font-smoothing: antialiased; 
-            height: 100%;/* max-height: 600px; */
-            background-color: hsla(200,40%,30%,4);
-            background-image:   
-            url('https://genshindle.com/data/gallery/backgrounds/bg-anemo.webp');
+            height: 100%;
             
-            background-position:  0 20%, 0 100%, 0 50%, 0 100%, 0 0;
-            background-size: 2500px, 800px, 500px 200px, 1000px, 400px 260px;  
         }
         @keyframes para {100% {
             background-position:  -5000px 20%, -800px 95%, 500px 50%,

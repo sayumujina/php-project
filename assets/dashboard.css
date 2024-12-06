@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap');
 body {
     font-family: 'Nunito Sans', 'Parkinsans', sans-serif;
     background-color: rgb(239,236,185);
@@ -62,6 +63,7 @@ input[type="file"] {
 }
 
 button {
+    font-family: 'Nunito Sans', sans-serif; /* Explicitly apply font-family */
     display: flex;
     justify-content: center;
     align-items: center;

@@ -30,10 +30,10 @@ if (!isset($_SESSION['session_id'])) {
 
         <!-- Navigation Links -->
         <div class="navigation">
-            <a href="index.php" class="btn">Dashboard</a>
-            <a href="edit_profile.php" class="btn">Edit Profile</a>
-            <a href="mailto:imestellia@gmail.com" class="btn">Contact Admin</a>
-            <a href="logout.php" class="btn">Logout</a>
+            <a href="index.php" class="button">Dashboard</a>
+            <a href="edit_profile.php" class="button">Edit Profile</a>
+            <a href="mailto:imestellia@gmail.com" class="button">Contact Admin</a>
+            <a href="logout.php" class="button">Logout</a>
         </div>
 
         <!-- Main Content -->
