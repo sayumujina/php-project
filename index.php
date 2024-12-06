@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bindValue(':content', $content);
     $stmt->bindValue(':subject_id', $subject_id);
     $stmt->bindValue(':user_id', $_SESSION['session_id']);
+    $stmt->bindValue(':create_time', $creation_date);
 
     try {
         $stmt->execute();
@@ -44,8 +45,6 @@ if ($keyword) {
     $query .= " AND (posts.title LIKE :keyword OR posts.content LIKE :keyword)";
     $search[':keyword'] = '%' . $keyword . '%';
 }
-
-$query .= " ORDER BY posts.creation_date DESC";
 
 // Exceute searching
 try {
@@ -73,21 +72,25 @@ try {
             if (confirm('Are you sure you want to delete this post?')) {
                 fetch('delete_post.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ post_id: postId })
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        post_id: postId,
+                    }),
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        document.getElementById(`post-${postId}`).remove();
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while deleting the post.');
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(data.message);
+                            window.location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
             }
         }
     </script>
@@ -142,11 +145,9 @@ try {
                     echo "<p>Created on: " . $creationDate->format('d M Y, H:i') . "</p>";
 
                     // Show edit and delete buttons if within 5 minutes
-                    // if ($timeDiff <= 300) { // 300 seconds = 5 minutes
-                    //     echo "<a href='edit_post.php?post_id=" . $post['id'] . "' class='btn'>Edit</a>";
-                    //     echo "<button class='btn' onclick='deletePost(" . $post['id'] . ")'>Delete</button>";
-                    // }
-
+                    echo "<a href='edit_post.php?post_id=" . $post['post_id'] . "' class='button'>Edit</a>";
+                    echo "<button class='button' onclick='deletePost(" . $post['post_id'] . ")'>Delete</button>";
+                    
                     echo "</div>";
                 }
             } else {
