@@ -72,7 +72,7 @@ if (isset($_POST['subject_ids']) && isset($_POST['action'])) {
             <button type="submit">Save Changes</button>
         </form>
     </div>
-    <?php include 'templates/headercontent.php'; ?>
+    <?php include 'dashboard.php'; ?>
 </body>
 </html>
 

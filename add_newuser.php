@@ -167,6 +167,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
  
         <a href="manage_users.php" class="back-link">Back to Manage Users</a>
     </div>
-    <?php include 'templates/headercontent.php'; ?>
+    <?php include 'dashboard.php'; ?>
 </body>
 </html>

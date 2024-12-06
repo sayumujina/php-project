@@ -104,6 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p><b>Already have an account? </b><a href="login.php">Login Here</a></p>
     </div>
 
-<?php include 'templates/header.php'; ?>
+<?php include 'header.php'; ?>
 </body>
 </html>

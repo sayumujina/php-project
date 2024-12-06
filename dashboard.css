@@ -3,7 +3,7 @@ body {
     font-family: 'Nunito Sans', 'Parkinsans', sans-serif;
     background-color: rgb(239,236,185);
 }
- .container {
+.container {
     max-width: 800px;   
     margin: 20px auto;
     padding: 20px;
@@ -31,11 +31,10 @@ form {
 
 
 h2 {
-    margin-top: 20px; /* Space above the posts section */
-    font-size: 1.8em; /* Slightly larger font size for headings */
-    color: black; /* Consistent text color */
-    border-bottom: 2px solid #007bff; /* Underline effect for emphasis */
-    padding-bottom: 5px; /* Space below the border */
+    margin-top: 20px; 
+    font-size: 1.8em; 
+    color: black; 
+    padding-bottom: 5px; 
 }
 
 label {
@@ -49,7 +48,6 @@ input[type="text"], textarea, select {
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    margin-bottom: 20px;
     box-sizing: border-box;
 }
 
@@ -58,12 +56,8 @@ textarea {
     min-height: 150px;
 }
 
-input[type="file"] {
-    margin-bottom: 20px;
-}
-
-button {
-    font-family: 'Nunito Sans', sans-serif; /* Explicitly apply font-family */
+.button {
+    font-family: 'Nunito Sans', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -116,30 +110,30 @@ input[type="password"]{
 }
 
 .button {
+    font-family: 'Nunito Sans', sans-serif;
     display: inline-block;
     justify-content: center;
     padding: 10px 20px;
     font-size: 16px;
-    color: black;
     background-color: rgba(127, 171, 112);
     color: rgb(255, 255, 255);
     border-radius: 30px;
+    font-weight: bold;
     text-decoration: none;
     text-align: center;
     transition: background 0.3s ease, transform 0.3s ease;
     margin: 10px 0px;
 }
-.btn:hover {
+.button:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    background-color: #fff;
+    color: #000;
 }
 
-.posts {
+.posts { 
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px; /* Space between cells */
-}
-.posts {
-    
     border: 1px solid #dee2e6;
     border-radius: 5px;
     padding: 15px;
@@ -151,21 +145,16 @@ input[type="password"]{
     color: rgb(77, 255, 0);
     text-align: center;
 }
-.submit{
-    text-align: center;
-    width: 100%;
-    border-radius: 20px;
-}
-.submit:hover{
-    transform: translateY(-2px);
-    margin-right: 20px;
-}   
 
 .search {
-    padding: 15px;
-    border: 1px solid #ddd;
-    margin-top: 10px;
+    align-items: center;
     background-color: #f9f9f9;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    margin: 1rem 0; 
+    text-align: center; 
 }
 
 .post {
@@ -180,6 +169,36 @@ input[type="password"]{
     margin-top: 10px;
 }
 
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
 
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .header p {
+        font-size: 0.9rem;
+    }
+
+    .navigation {
+        padding: 1rem;
+    }
+
+    .navigation .button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .main-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .main-content p {
+        font-size: 0.9rem;
+    }
+}
 
 

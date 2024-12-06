@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p><b>or </b><a href="register.php">Register here</a></p>
     </div>
 
-<?php include 'templates/header.php'; ?>
+<?php include 'header.php'; ?>
 
 </body>
 </html>

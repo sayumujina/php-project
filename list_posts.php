@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
     $user_id = $_SESSION['session_id'];
-    $creation_date = (new DateTime())->format('d M Y, H:i');
+    $creation_date = (new DateTime())->format('Y-m-d H:i:s');
 
     // Insert post to the database'
     if (!empty($title) && !empty($content)) {
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':content', $content, PDO::PARAM_STR);
-            $stmt->bindParam(':creation_date', $creation_date, PDO::PARAM_STR);
+            $stmt->bindParam(':creation_date', $creation_date);
             $stmt->execute();
 
             // Redirect to index.php after successful post creation
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    <?php include 'templates/headercontent.php'; ?>
+    <?php include 'dashboard.php'; ?>
 </body>
 </html>
 

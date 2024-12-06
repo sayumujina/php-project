@@ -67,6 +67,12 @@ try {
     body {
         font-weight: 600;
     }
+    .top-button-container {
+    display: flex;
+    justify-content: center; 
+    gap: 1rem; 
+    margin: 1rem 0; 
+}
 
     </style>
     <script>
@@ -112,10 +118,10 @@ try {
         </div>
 
         <!-- Buttons -->
-        <div>
+        <div class="top-button-container">
             <a href="homepage.php" class="button">Home</a>
             <a href="list_posts.php" class="button">Create New Post</a>
-            <a href="mailto:imestellia@gmail.com" class="button">Contact Admin</a>
+            <a href="contact_admin.php" class="button">Contact Admin</a>
         </div>
 
         <!--Search -->
@@ -157,7 +163,7 @@ try {
             }
             ?>
         </div>
-        <?php include 'templates/headercontent.php'; ?>
+        <?php include 'dashboard.php'; ?>
     </div>
 </body>
 </html>

@@ -189,6 +189,6 @@ try {
         </ul>
     </div>
 
-    <?php include 'templates/headercontent.php'; ?>
+    <?php include 'dashboard.php'; ?>
 </body>
 </html>

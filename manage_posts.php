@@ -224,6 +224,6 @@ try {
             <p>No posts found.</p>
         <?php endif; ?>
     </div>
-    <?php include 'templates/headercontent.php'; ?>
+    <?php include 'dashboard.php'; ?>
 </body>
 </html>

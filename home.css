@@ -33,8 +33,8 @@ body {
 
 /* Header */
 .header {
-    background: rgb(239,236,185);
-    color: black;
+    background: rgb(174,144,106);
+    color: #fff;
     padding: 2rem;
     text-align: center;
     
@@ -68,7 +68,7 @@ body {
     color: rgb(255, 255, 255);
     text-decoration: none;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 40px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -77,6 +77,8 @@ body {
 .navigation .button:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    background-color: #fff;
+    color: #000;
 }
 
 .navigation .button:active {
@@ -102,21 +104,36 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .navigation .button {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.9rem;
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
     }
 
     .header h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+    }
+
+    .header p {
+        font-size: 0.9rem;
+    }
+
+    .navigation {
+        padding: 1rem;
+    }
+
+    .navigation .button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
     }
 
     .main-content h2 {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+    }
+
+    .main-content p {
+        font-size: 0.9rem;
     }
 }
-
 
 
 

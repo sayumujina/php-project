@@ -113,6 +113,6 @@ if (isset($_POST['update'])) {
 
     <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
 
-<?php include 'templates/headercontent.php'; ?> <!-- Include header content -->
+<?php include 'dashboard.php'; ?> <!-- Include header content -->
 </body>
 </html>

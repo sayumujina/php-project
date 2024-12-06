@@ -32,7 +32,7 @@ if (!isset($_SESSION['session_id'])) {
         <div class="navigation">
             <a href="index.php" class="button">Dashboard</a>
             <a href="edit_profile.php" class="button">Edit Profile</a>
-            <a href="mailto:imestellia@gmail.com" class="button">Contact Admin</a>
+            <a href="contact_admin.php" class="button">Contact Admin</a>
             <a href="logout.php" class="button">Logout</a>
         </div>
 
@@ -40,6 +40,6 @@ if (!isset($_SESSION['session_id'])) {
 
         </div>
     </div>
-    <?php include 'templates/home.php'; ?>
+    <?php include 'home.php'; ?>
 </body>
 </html>

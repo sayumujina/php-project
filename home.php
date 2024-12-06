@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Website Header</title>
-    <link rel="stylesheet" href="assets/Home.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
 <nav>

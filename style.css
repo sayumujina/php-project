@@ -158,7 +158,10 @@ input[type="password" i] {
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    background-color: #fff;
+    color: #000;
 }
+
 a:-webkit-any-link {
     cursor: pointer;
     text-decoration: none;  
@@ -224,3 +227,4 @@ a:-webkit-any-link {
     margin-bottom: 10px;
     text-align: center;
 }
+
