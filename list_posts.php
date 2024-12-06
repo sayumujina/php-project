@@ -12,30 +12,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
     $user_id = $_SESSION['session_id'];
+    $creation_date = (new DateTime())->format('d M Y, H:i');
 
-    // Handle file upload if an image is provided
-    $image_path = null;
-    if (isset($_FILES['post_image']) && $_FILES['post_image']['error'] === UPLOAD_ERR_OK) {
-        $upload_dir = 'uploads/';
-        $image_name = time() . '_' . basename($_FILES['post_image']['name']);
-        $image_path = $upload_dir . $image_name;
-
-        // Move the uploaded file to the server's upload directory
-        if (!move_uploaded_file($_FILES['post_image']['tmp_name'], $image_path)) {
-            $error_message = "Failed to upload image.";
-            $image_path = null;
-        }
-    }
-
-    // Insert the post with the image path into the database
+    // Insert post to the database'
     if (!empty($title) && !empty($content)) {
         try {
-            $query = "INSERT INTO posts (user_id, title, content, image_path) VALUES (:user_id, :title, :content, :image_path)";
+            $query = "INSERT INTO posts (user_id, title, content, creation_date) VALUES (:user_id, :title, :content, :creation_date)";
             $stmt = $pdo->prepare($query);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':content', $content, PDO::PARAM_STR);
-            $stmt->bindParam(':image_path', $image_path, PDO::PARAM_STR);
+            $stmt->bindParam(':creation_date', $creation_date, PDO::PARAM_STR);
             $stmt->execute();
 
             // Redirect to index.php after successful post creation
@@ -48,6 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Title and content are required.";
     }
 }
+    // Initialize subject
+    $query = "SELECT subject_name FROM subject";
+    $stmt = $pdo->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Post</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
     <style>
         body{
             background-repeat: no-repeat;
@@ -85,32 +75,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         h1 {
             text-align: center;
         }
-        .back-link {
-            background: linear-gradient(109.6deg, rgba(156, 252, 248, 1) 11.2%, rgba(110, 123, 251, 1) 91.1%);
-            border-radius: 30px;
-            padding: 10px 20px;
-            text-decoration: none;
-            margin-top: 20px;
-            display: inline-block;
-        }
+        s
         .form-group, .submit {
             margin-bottom: 20px;
         }
-        .btn {
-            background-color: #6e7bfb;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+        
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Create a New Post</h1>
-
+        <!--Display error message if there is one -->
         <?php if (isset($error_message)): ?>
             <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
         <?php endif; ?>
@@ -127,25 +102,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="form-group">
-                <label for="subject_id">Module:</label>
-                <select name="subject_id" id="subject_id" required>
-                    <option value="1">GENERAL</option>
-                    <option value="14">HTML&JAVA</option>
-                    <option value="12">MYSQL</option>
-                    <option value="15">PHP</option>
-                </select>
+                <label for="subject_id">Subject</label>
+                <select name="subject_name" id="subject_id">
+                    <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                        <option value="<?php echo $row['subject_name']; ?>"><?php echo $row['subject_name']; ?></option>
+                    <?php endwhile; ?>
             </div>
 
-            <div class="form-group">
-                <label for="post_image">Upload Image:</label>
-                <input type="file" name="post_image" id="post_image" accept="image/*">
-            </div>
-
-            <button type="submit" class="btn">Submit Post</button>
+            <button type="submit" class="button">Submit Post</button>
+            
         </form>
 
         <div class="submit">
-            <a href="index.php" class="back-link">Back to Dashboard</a>
+            <a href="index.php" class="button">Back to Dashboard</a>
         </div>
     </div>
 
