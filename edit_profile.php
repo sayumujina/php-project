@@ -11,6 +11,7 @@ include 'db_connect.php';
 $user_id = $_SESSION['session_id'];
 $error = ""; // Variable to store error messages
 
+// Handle profile update form submission
 if (isset($_POST['update'])) {
     $email = $_POST['email'];
     $current_password = $_POST['password'];
@@ -34,7 +35,7 @@ if (isset($_POST['update'])) {
             // Update user profile, including name, email, and password
             $new_password_hashed = password_hash($new_password, PASSWORD_BCRYPT);
             $update_query = "UPDATE users SET email = :email, password = :password WHERE id = :id";
-            $stmt = $conn->prepare($update_query);
+            $stmt = $pdo->prepare($update_query);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $new_password_hashed);
             $stmt->bindParam(':id', $user_id);
@@ -46,45 +47,76 @@ if (isset($_POST['update'])) {
         }
     }
 }
+
+// Handle user deletion
+if (isset($_POST['delete_account'])) {
+    try {
+        // Delete the user from the database
+        $delete_query = "DELETE FROM users WHERE id = :id";
+        $stmt = $pdo->prepare($delete_query);
+        $stmt->bindParam(':id', $user_id);
+        $stmt->execute();
+
+        // Destroy the session and redirect to login page
+        session_destroy();
+        header('Location: login.php'); // Redirect to login after successful deletion
+        exit;
+    } catch (PDOException $e) {
+        $error = "Error deleting account: " . $e->getMessage();
+    }
+}
 ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
     <style>
-        h1{
+        h1 {
             text-align: center;
+        }
+        .button:hover {
+            background-color: darkblue;
         }
     </style>
 </head>
 <body>
     <div class="container">
-    <h1>Edit Profile</h1>
-    <form method="POST">
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
-        <label for="password">Current Password:</label>
-        <input type="password" name="password">
-        <label for="new_password">New Password:</label>
-        <input type="password" name="new_password">
-        <label for="confirm_password">Confirm New Password:</label>
-        <input type="password" name="confirm_password">
-        <div class="submit">
-        <button type="submit" class="button"  name="update">Update Profile</button>
-    </form>
-    </div>
-  
-    <div class="submit">
-    <a href="homepage.php" class="button">Back to Home</a>
-    </div>
-    <!-- Display error message if any -->
-    <?php if (!empty($error)): ?>
-        <p style="color:red;"><?php echo $error; ?></p>
-    <?php endif; ?>
-    <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
+        <h1>Edit Profile</h1>
 
-<?php include 'dashboard.php'; ?> <!-- Include header content -->
+        <!-- Display error message if any -->
+        <?php if (!empty($error)): ?>
+            <p style="color:red;"><?php echo $error; ?></p>
+        <?php endif; ?>
+
+        <!-- Form to update profile -->
+        <form method="POST">
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+
+            <label for="password">Current Password:</label>
+            <input type="password" name="password" required>
+
+            <label for="new_password">New Password:</label>
+            <input type="password" name="new_password">
+
+            <label for="confirm_password">Confirm New Password:</label>
+            <input type="password" name="confirm_password">
+
+            <button type="submit" class="button" name="update">Update Profile</button>
+        </form>
+
+        <div class="submit">
+            <a href="homepage.php" class="button">Back to Home</a>
+        </div>
+
+        <!-- Form to delete the user account -->
+        <form method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+            <button type="submit" class="button" style="background-color: red; max-width: 180px;" name="delete_account">Delete Account</button>
+        </form>
+    </div>
+
+    <?php include 'dashboard.php'; ?> 
 </body>
 </html>

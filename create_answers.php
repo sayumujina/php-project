@@ -28,6 +28,8 @@ include 'db_connect.php';
             echo "Post not found.";
             exit;
         }
+    
+   
 
     // Fetch answers to the post
     $answers = "SELECT answers.*, users.username FROM answers
@@ -38,10 +40,14 @@ include 'db_connect.php';
     $answers = $stmt_answers->fetchAll(PDO::FETCH_ASSOC);
     $creation_date = (new DateTime())->format('Y-m-d H:i:s');
 
+    // Fetch the user that is answering the post
+    $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Anonymous';
+
     // Handle reply form submission
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $content = trim($_POST['content']);
         $user_id = $_SESSION['session_id'];
+        $answer_date = (new DateTime())->format('Y-m-d H:i:s');
 
         if (!empty($content)) {
             try {
@@ -49,13 +55,13 @@ include 'db_connect.php';
                 $stmt = $pdo->prepare($posts);
                 $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
                 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-                $stmt->bindParam(':username', $_SESSION['username'], PDO::PARAM_STR);
+                $stmt->bindParam(':username', $username, PDO::PARAM_STR);
                 $stmt->bindParam(':content', $content, PDO::PARAM_STR);
                 $stmt->bindParam(':answer_date', $answer_date);
                 $stmt->execute();
 
                 // Reload the page to show the new reply
-                header("Location: view_post.php?post_id=" . $post_id);
+                header("Location: create_answers.php?post_id=" . $post_id);
                 exit;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
