@@ -146,7 +146,7 @@ include 'db_connect.php';
             } elseif ($posts) {
                 foreach ($posts as $post) {
                     echo "<div title='post-" . $post['title'] . "' class='post'>";
-                    echo "<h2><a href='view_post.php?title=" . $post['title'] . "'>" . htmlspecialchars($post['title']) . "</a></h2>";
+                    echo "<h2><a href='create_answers.php?post_id=" . $post['post_id'] . "'>" . htmlspecialchars($post['title']) . "</a></h2>";
                     echo "<p>" . htmlspecialchars($post['content']) . "</p>";
                     echo "<p>Module: " . htmlspecialchars($post['module_id']) . "</p>"; 
 
