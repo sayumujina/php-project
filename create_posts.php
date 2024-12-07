@@ -8,20 +8,23 @@ if (!isset($_SESSION['session_id'])) {
     exit;
 }
 
+// Process data upon submitting
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
     $user_id = $_SESSION['session_id'];
+    $module_id = $_POST['module_id'];
     $creation_date = (new DateTime())->format('Y-m-d H:i:s');
 
     // Insert post to the database'
     if (!empty($title) && !empty($content)) {
         try {
-            $query = "INSERT INTO posts (user_id, title, content, creation_date) VALUES (:user_id, :title, :content, :creation_date)";
+            $query = "INSERT INTO posts (user_id, title, content, module_id, creation_date) VALUES (:user_id, :title, :content, :module_id, :creation_date)";
             $stmt = $pdo->prepare($query);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+            $stmt->bindParam(':module_id', $module_id, PDO::PARAM_STR);
             $stmt->bindParam(':creation_date', $creation_date);
             $stmt->execute();
 
@@ -35,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Title and content are required.";
     }
 }
-    // Initialize module
+    // Fetch modules from the database
     $query = "SELECT module_name FROM module";
     $stmt = $pdo->query($query);
 ?>
@@ -48,23 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Create New Post</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
     <style>
-        body{
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: top;
-            width: 100%;
-            height: 100%;
-            font-weight: 600;
-            -webkit-font-smoothing: antialiased; 
-            height: 100%;
-            
-        }
-        @keyframes para {100% {
-            background-position:  -5000px 20%, -800px 95%, 500px 50%,
-            1000px 100%, 400px 0;
-        }
-    }
         h1 {
             text-align: center;
         }
@@ -95,16 +81,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <textarea type="text" name="content" id="content" rows="5" required></textarea>
             </div>
 
+            <!-- Select module -->
             <div class="form-group">
                 <label for="module_id">Module</label>
-                <select name="module_name" id="module_id">
+                <select name="module_id" id="module_id">
                     <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                        <!-- Makes the module names visible -->
                         <option value="<?php echo $row['module_name']; ?>"><?php echo $row['module_name']; ?></option>
                     <?php endwhile; ?>
             </div>
-
             <button type="submit" class="button">Submit Post</button>
-            
         </form>
 
         <div class="submit">

@@ -14,14 +14,14 @@ if (isset($_GET['post_id'])) {
 
     try {
         // Fetch the post
-        $query = "SELECT * FROM posts WHERE id = :post_id";
+        $query = "SELECT * FROM posts WHERE post_id = :post_id";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
         $stmt->execute();
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Fetch replies to the post
-        $reply_query = "SELECT replies.*, users.username FROM replies JOIN users ON replies.user_id = users.id WHERE replies.post_id = :post_id ORDER BY replies.created_at ASC";
+        $reply_query = "SELECT replies.*, users.username FROM replies JOIN users ON replies.user_id = users.post_id WHERE replies.post_id = :post_id ORDER BY replies.created_at ASC";
         $reply_stmt = $pdo->prepare($reply_query);
         $reply_stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
         $reply_stmt->execute();
