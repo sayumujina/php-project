@@ -8,6 +8,7 @@ include 'db_connect.php';
         exit;
     }
 
+
     // Create new post
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $title = $_POST['title'];
@@ -15,12 +16,13 @@ include 'db_connect.php';
         $module_id = $_POST['module_id'];
         $creation_date = date("Y-m-d H:i:s");
 
-        $query = "INSERT INTO posts (title, content, module_id, user_id, create_time) VALUES (:title, :content, :module_id, :user_id, NOW())";
+        $query = "INSERT INTO posts (title, content, module_id, user_id, username, create_time) VALUES (:title, :content, :module_id, :user_id, :username, creation_date)";
         $stmt = $pdo->prepare($query);
-        $stmt->bindValue(':title', $title);
-        $stmt->bindValue(':content', $content);
-        $stmt->bindValue(':module_id', $module_id);
-        $stmt->bindValue(':user_id', $_SESSION['session_id']);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+        $stmt->bindValue(':module_id', $module_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $_SESSION['session_id'],  PDO::PARAM_INT);
+        $stmt->bindValue(':username', $_SESSION['session_username'], PDO::PARAM_STR);
         $stmt->bindValue(':create_time', $creation_date);
 
         try {
@@ -147,6 +149,7 @@ include 'db_connect.php';
                 foreach ($posts as $post) {
                     echo "<div title='post-" . $post['title'] . "' class='post'>";
                     echo "<h2><a href='create_answers.php?post_id=" . $post['post_id'] . "'>" . htmlspecialchars($post['title']) . "</a></h2>";
+                    echo "<p>Created by: " . htmlspecialchars($post['username']) . "</p>";
                     echo "<p>" . htmlspecialchars($post['content']) . "</p>";
                     echo "<p>Module: " . htmlspecialchars($post['module_id']) . "</p>"; 
 

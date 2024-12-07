@@ -2,45 +2,46 @@
 session_start();
 include 'db_connect.php';
 
-// Redirect to login page if the user is not logged in
-if (!isset($_SESSION['session_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-// Process data upon submitting
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = trim($_POST['title']);
-    $content = trim($_POST['content']);
-    $user_id = $_SESSION['session_id'];
-    $module_id = $_POST['module_id'];
-    $creation_date = (new DateTime())->format('Y-m-d H:i:s');
-
-    // Insert post to the database'
-    if (!empty($title) && !empty($content)) {
-        try {
-            $query = "INSERT INTO posts (user_id, title, content, module_id, creation_date) VALUES (:user_id, :title, :content, :module_id, :creation_date)";
-            $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            $stmt->bindParam(':content', $content, PDO::PARAM_STR);
-            $stmt->bindParam(':module_id', $module_id, PDO::PARAM_STR);
-            $stmt->bindParam(':creation_date', $creation_date);
-            $stmt->execute();
-
-            // Redirect to index.php after successful post creation
-            header("Location: index.php");
-            exit;
-        } catch (PDOException $e) {
-            $error_message = "Error creating post: " . $e->getMessage();
-        }
-    } else {
-        $error_message = "Title and content are required.";
+    // Redirect to login page if the user is not logged in
+    if (!isset($_SESSION['session_id'])) {
+        header('Location: login.php');
+        exit;
     }
-}
-    // Fetch modules from the database
-    $query = "SELECT module_name FROM module";
-    $stmt = $pdo->query($query);
+
+    // Process data upon submitting
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $title = trim($_POST['title']);
+        $content = trim($_POST['content']);
+        $user_id = $_SESSION['session_id'];
+        $module_id = $_POST['module_id'];
+        $creation_date = (new DateTime())->format('Y-m-d H:i:s');
+
+        // Insert post to the database'
+        if (!empty($title) && !empty($content)) {
+            try {
+                $query = "INSERT INTO posts (user_id, username, title, content, module_id, creation_date) VALUES (:user_id, :username, :title, :content, :module_id, :creation_date)";
+                $stmt = $pdo->prepare($query);
+                $stmt->bindParam(':user_id', $_SESSION['session_id'], PDO::PARAM_INT);
+                $stmt->bindParam(':username', $_SESSION['session_username'], PDO::PARAM_STR);
+                $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+                $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+                $stmt->bindParam(':module_id', $module_id, PDO::PARAM_STR);
+                $stmt->bindParam(':creation_date', $creation_date);
+                $stmt->execute();
+
+                // Redirect to index.php after successful post creation
+                header("Location: index.php");
+                exit;
+            } catch (PDOException $e) {
+                $error_message = "Error creating post: " . $e->getMessage();
+            }
+        } else {
+            $error_message = "Title and content are required.";
+        }
+    }
+        // Fetch modules from the database
+        $query = "SELECT module_name FROM module";
+        $stmt = $pdo->query($query);
 ?>
 
 <!DOCTYPE html>

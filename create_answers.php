@@ -29,8 +29,6 @@ include 'db_connect.php';
             exit;
         }
     
-   
-
     // Fetch answers to the post
     $answers = "SELECT answers.*, users.username FROM answers
     LEFT JOIN users ON answers.user_id = users.id WHERE post_id = :post_id";
@@ -54,8 +52,8 @@ include 'db_connect.php';
                 $posts = "INSERT INTO answers (post_id, user_id, username, content, answer_date) VALUES (:post_id, :user_id, :username, :content, :answer_date)";
                 $stmt = $pdo->prepare($posts);
                 $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
-                $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-                $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+                $stmt->bindParam(':user_id', $_SESSION['session_id'], PDO::PARAM_INT);
+                $stmt->bindParam(':username', $_SESSION['session_username'], PDO::PARAM_STR);
                 $stmt->bindParam(':content', $content, PDO::PARAM_STR);
                 $stmt->bindParam(':answer_date', $answer_date);
                 $stmt->execute();
