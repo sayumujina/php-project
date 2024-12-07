@@ -35,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Title and content are required.";
     }
 }
-    // Initialize subject
-    $query = "SELECT subject_name FROM subject";
+    // Initialize module
+    $query = "SELECT module_name FROM module";
     $stmt = $pdo->query($query);
 ?>
 
@@ -70,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         s
         .form-group, .submit {
+            font-family: 'Nunito Sans', sans-serif;
             margin-bottom: 20px;
         }
         
@@ -83,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
         <?php endif; ?>
 
-        <form action="list_posts.php" method="POST" enctype="multipart/form-data">
+        <form action="create_posts.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title:</label>
                 <input type="text" name="title" id="title" required>
@@ -91,14 +92,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label for="content">Content:</label>
-                <textarea name="content" id="content" rows="5" required></textarea>
+                <textarea type="text" name="content" id="content" rows="5" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="subject_id">Subject</label>
-                <select name="subject_name" id="subject_id">
+                <label for="module_id">Module</label>
+                <select name="module_name" id="module_id">
                     <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-                        <option value="<?php echo $row['subject_name']; ?>"><?php echo $row['subject_name']; ?></option>
+                        <option value="<?php echo $row['module_name']; ?>"><?php echo $row['module_name']; ?></option>
                     <?php endwhile; ?>
             </div>
 

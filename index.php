@@ -12,20 +12,20 @@ if (!isset($_SESSION['session_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $subject_id = $_POST['subject_id'];
+    $module_id = $_POST['module_id'];
     $creation_date = date("Y-m-d H:i:s");
 
-    $query = "INSERT INTO posts (title, content, subject_id, user_id, create_time) VALUES (:title, :content, :subject_id, :user_id, NOW())";
+    $query = "INSERT INTO posts (title, content, module_id, user_id, create_time) VALUES (:title, :content, :module_id, :user_id, NOW())";
     $stmt = $pdo->prepare($query);
     $stmt->bindValue(':title', $title);
     $stmt->bindValue(':content', $content);
-    $stmt->bindValue(':subject_id', $subject_id);
+    $stmt->bindValue(':module_id', $module_id);
     $stmt->bindValue(':user_id', $_SESSION['session_id']);
     $stmt->bindValue(':create_time', $creation_date);
 
     try {
         $stmt->execute();
-        header('Location: list_posts.php');
+        header('Location: create_posts.php');
         exit;
     } catch (PDOException $e) {
         echo "Error creating post: " . $e->getMessage();
@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Search with title
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : null;
 
-// Fetch data according to subjects and filter options
-$query = "SELECT posts.*, subject.subject_name FROM posts 
-    LEFT JOIN subject ON posts.subject = subject.subject_id WHERE 1 = 1";
+// Fetch data according to modules and filter options
+$query = "SELECT posts.*, module.module_name FROM posts 
+    LEFT JOIN module ON posts.module = module.module_id WHERE 1 = 1";
  
 $search = [];
 
@@ -120,7 +120,7 @@ try {
         <!-- Buttons -->
         <div class="top-button-container">
             <a href="homepage.php" class="button">Home</a>
-            <a href="list_posts.php" class="button">Create New Post</a>
+            <a href="create_posts.php" class="button">Create New Post</a>
             <a href="contact_admin.php" class="button">Contact Admin</a>
         </div>
 
@@ -146,7 +146,7 @@ try {
                     echo "<div title='post-" . $post['title'] . "' class='post'>";
                     echo "<h2><a href='view_post.php?title=" . $post['title'] . "'>" . htmlspecialchars($post['title']) . "</a></h2>";
                     echo "<p>" . htmlspecialchars($post['content']) . "</p>";
-                    echo "<p>Subject: " . htmlspecialchars($post['subject_name']) . "</p>"; 
+                    echo "<p>module: " . htmlspecialchars($post['module_name']) . "</p>"; 
 
                     // Display creation date
                     $creationDate = new DateTime($post['creation_date']);

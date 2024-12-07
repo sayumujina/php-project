@@ -57,20 +57,7 @@ if (isset($_POST['update'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
     <style>
         body{
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: top;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, Helvetica;
-            letter-spacing: 0.02em;
-            font-weight: 400;   
-            -webkit-font-smoothing: antialiased; 
-            height: 100%;/* max-height: 600px; */
-            background-color: hsla(200,40%,30%,4);
-            background-image:   
-            url('https://genshindle.com/data/gallery/backgrounds/bg-anemo.webp');
+          
             
             background-position:  0 20%, 0 100%, 0 50%, 0 100%, 0 0;
             background-size: 2500px, 800px, 500px 200px, 1000px, 400px 260px;  
@@ -100,7 +87,7 @@ if (isset($_POST['update'])) {
             <label for="confirm_password">Confirm New Password:</label>
             <input type="password" name="confirm_password">
             <div class="submit">
-            <button type="submit"  name="update">Update Profile</button>
+            <button type="submit" class="button"  name="update">Update Profile</button>
         </form>
         </div>
         <!-- Display error message if any -->
@@ -108,7 +95,7 @@ if (isset($_POST['update'])) {
             <p style="color:red;"><?php echo $error; ?></p>
         <?php endif; ?>
        <div class="submit">
-        <a href="homepage.php" class="back">Back to Home</a>
+        <a href="homepage.php" class="button">Back to Home</a>
     </div>
 
     <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>

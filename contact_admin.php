@@ -11,15 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Send email or save to database (example: email)
-    $to = 'admin@example.com';
-    $subject = 'New Contact Form Message';
+    $to = 'imestellia@gmail.com';
+    $module = 'Customer Support Request';
     $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
     $headers = "From: $email";
 
-    if (mail($to, $subject, $body, $headers)) {
-        echo json_encode(['status' => 'success', 'message' => 'Message sent successfully.']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to send the message.']);
+    // Since this code is running on local host and will not actually send an email, the warning message will be suppressed 
+    if (@mail($to, $module, $body, $headers)) {
+        $statusMessage = 'Message sent successfully.';
     }
 }
 ?>
@@ -70,17 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         transition: all 0.3s ease;
     }
 
-    .contact-panel .button {
-        width: 100%;
-        padding: 0.8rem;
-        font-size: 1rem;
+    .send-successful {
+        color: green;
         font-weight: 600;
-        background-color: rgba(127, 171, 112);
-        color: #fff;
-        border: none;
-        border-radius: 40px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        text-align: center;
+        margin-top: 1rem;
     }
 
 
@@ -97,7 +90,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
     <div class="contact-panel">
     <h2>Contact Admin</h2>
-    <form id="contact-form">
+    <!-- Display the status message -->
+    <?php if (!empty($statusMessage)): ?>
+        <div class="send-successful"> <?php echo $statusMessage ?> </div>
+    <?php endif; ?>
+
+    <form id="contact-form" method="POST" action="">
         <div class="form-group">
             <label for="name">Your Name</label>
             <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
@@ -111,8 +109,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <textarea id="message" name="message" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
         </div>
         <button type="submit" class="button">Send Message</button>
+        <a class="button" href="homepage.php">Back to Home</a>
     </form>
     
+     
     <?php include 'dashboard.php'; ?>
     
 </div>

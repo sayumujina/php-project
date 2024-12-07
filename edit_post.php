@@ -39,15 +39,15 @@ try {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newTitle = $_POST['title'];
     $newContent = $_POST['content'];
-    $newModuleId = $_POST['subject_id'];
+    $newModuleId = $_POST['module_id'];
 
     // Update the post in the database
     try {
-        $updateQuery = "UPDATE posts SET title = :title, content = :content, subject_id = :subject_id WHERE id = :id";
+        $updateQuery = "UPDATE posts SET title = :title, content = :content, module_id = :module_id WHERE id = :id";
         $stmt = $pdo->prepare($updateQuery);
         $stmt->bindParam(':title', $newTitle, PDO::PARAM_STR);
         $stmt->bindParam(':content', $newContent, PDO::PARAM_STR);
-        $stmt->bindParam(':subject_id', $newModuleId, PDO::PARAM_INT);
+        $stmt->bindParam(':module_id', $newModuleId, PDO::PARAM_INT);
         $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
         if ($stmt->execute()) {
             // Redirect back to manage_posts.php with a success message
@@ -134,12 +134,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="content">Content:</label><br>
             <textarea id="content" name="content" rows="10" required><?php echo htmlspecialchars($post['content']); ?></textarea><br><br>
             
-            <label for="subject_id">Module:</label><br>
-            <select id="subject_id" name="subject_id" required>
-                <option value="1" <?php echo $post['subject_id'] == 1 ? 'selected' : ''; ?>>General</option>
-                <option value="2" <?php echo $post['subject_id'] == 2 ? 'selected' : ''; ?>>HTML&CSS</option>
-                <option value="3" <?php echo $post['subject_id'] == 3 ? 'selected' : ''; ?>>Java</option>
-                <option value="4" <?php echo $post['subject_id'] == 4 ? 'selected' : ''; ?>>MySQL</option>
+            <label for="module_id">Module:</label><br>
+            <select id="module_id" name="module_id" required>
+                <option value="1" <?php echo $post['module_id'] == 1 ? 'selected' : ''; ?>>General</option>
+                <option value="2" <?php echo $post['module_id'] == 2 ? 'selected' : ''; ?>>HTML&CSS</option>
+                <option value="3" <?php echo $post['module_id'] == 3 ? 'selected' : ''; ?>>Java</option>
+                <option value="4" <?php echo $post['module_id'] == 4 ? 'selected' : ''; ?>>MySQL</option>
             </select><br><br>
 
         

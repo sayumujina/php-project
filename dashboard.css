@@ -43,9 +43,11 @@ label {
 }
 
 input[type="text"], textarea, select {
+    font-family: Nutino Sans, sans-serif;
     width: 100%;
     padding: 10px;
     font-size: 16px;
+    font-weight: 400;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-sizing: border-box;
@@ -55,6 +57,7 @@ textarea {
     resize: vertical;
     min-height: 150px;
 }
+
 
 .button {
     font-family: 'Nunito Sans', sans-serif;
