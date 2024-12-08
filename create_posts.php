@@ -2,46 +2,47 @@
 session_start();
 include 'db_connect.php';
 
-    // Redirect to login page if the user is not logged in
-    if (!isset($_SESSION['session_id'])) {
-        header('Location: login.php');
-        exit;
-    }
+// Redirect to login page if the user is not logged in
+if (!isset($_SESSION['session_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
-    // Process data upon submitting
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $title = trim($_POST['title']);
-        $content = trim($_POST['content']);
-        $user_id = $_SESSION['session_id'];
-        $module_id = $_POST['module_id'];
-        $creation_date = (new DateTime())->format('Y-m-d H:i:s');
+// Process data upon submitting
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = trim($_POST['title']);
+    $content = trim($_POST['content']);
+    $user_id = $_SESSION['session_id'];
+    $module_id = $_POST['module_id'];
+    $creation_date = (new DateTime())->format('Y-m-d H:i:s');
 
-        // Insert post to the database'
-        if (!empty($title) && !empty($content)) {
-            try {
-                $query = "INSERT INTO posts (user_id, username, title, content, module_id, creation_date) VALUES (:user_id, :username, :title, :content, :module_id, :creation_date)";
-                $stmt = $pdo->prepare($query);
-                $stmt->bindParam(':user_id', $_SESSION['session_id'], PDO::PARAM_INT);
-                $stmt->bindParam(':username', $_SESSION['session_username'], PDO::PARAM_STR);
-                $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-                $stmt->bindParam(':content', $content, PDO::PARAM_STR);
-                $stmt->bindParam(':module_id', $module_id, PDO::PARAM_STR);
-                $stmt->bindParam(':creation_date', $creation_date);
-                $stmt->execute();
+    // Insert post to the database'
+    if (!empty($title) && !empty($content)) {
+        try {
+            $query = "INSERT INTO posts (user_id, username, title, content, module_id, creation_date) VALUES (:user_id, :username, :title, :content, :module_id, :creation_date)";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':user_id', $_SESSION['session_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':username', $_SESSION['session_username'], PDO::PARAM_STR);
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+            $stmt->bindParam(':module_id', $module_id, PDO::PARAM_STR);
+            $stmt->bindParam(':creation_date', $creation_date);
+            $stmt->execute();
 
-                // Redirect to index.php after successful post creation
-                header("Location: index.php");
-                exit;
-            } catch (PDOException $e) {
-                $error_message = "Error creating post: " . $e->getMessage();
-            }
-        } else {
-            $error_message = "Title and content are required.";
+            // Redirect to index.php after successful post creation
+            header("Location: index.php");
+            exit;
+        // Handle errors
+        } catch (PDOException $e) {
+            $error_message = "Error creating post: " . $e->getMessage();
         }
+    } else {
+        $error_message = "Title and content are required.";
     }
-        // Fetch modules from the database
-        $query = "SELECT module_name FROM module";
-        $stmt = $pdo->query($query);
+}
+    // Fetch modules from the database
+    $query = "SELECT module_name FROM module";
+    $stmt = $pdo->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +52,9 @@ include 'db_connect.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Post</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
+        
         h1 {
             text-align: center;
         }
@@ -70,13 +73,16 @@ include 'db_connect.php';
         <?php if (isset($error_message)): ?>
             <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
         <?php endif; ?>
-
+        
+        <!-- Form to create a new post -->
         <form action="create_posts.php" method="POST" enctype="multipart/form-data">
+            <!-- Title input -->
             <div class="form-group">
                 <label for="title">Title:</label>
                 <input type="text" name="title" id="title" required>
             </div>
 
+            <!-- Content input -->
             <div class="form-group">
                 <label for="content">Content:</label>
                 <textarea type="text" name="content" id="content" rows="5" required></textarea>
@@ -99,7 +105,7 @@ include 'db_connect.php';
         </div>
     </div>
 
-    <?php include 'dashboard.php'; ?>
+    <?php include 'style.php'; ?>
 </body>
 </html>
 

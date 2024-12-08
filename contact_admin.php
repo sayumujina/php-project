@@ -10,9 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Send email or save to database (example: email)
-    $to = 'imestellia@gmail.com';
-    $module = 'Customer Support Request';
+    // Send email
+    $to = 'imestellia@gmail.com'; // Placeholder email address
+    $module = 'Customer Support Request'; // Placeholder email subject
     $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
     $headers = "From: $email";
 
@@ -26,11 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!doctype html>
 <head>
 <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Post</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
-    <style>
-    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create New Post</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+<style>
+
     .contact-panel {
         background-color: #fff;
         border: 3px solid rgb(174, 144, 106);
@@ -86,33 +86,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1.8rem;
         }
     }
- 
-    </style>
-    <div class="contact-panel">
-    <h2>Contact Admin</h2>
-    <!-- Display the status message -->
-    <?php if (!empty($statusMessage)): ?>
-        <div class="send-successful"> <?php echo $statusMessage ?> </div>
-    <?php endif; ?>
 
-    <form id="contact-form" method="POST" action="">
-        <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Your Message</label>
-            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
-        </div>
-        <button type="submit" class="button">Send Message</button>
-        <a class="button" href="homepage.php">Back to Home</a>
-    </form>
-    
-     
-    <?php include 'dashboard.php'; ?>
+</style>
+
+<div class="contact-panel">
+<h2>Contact Admin</h2>
+<!-- Display the status message -->
+<?php if (!empty($statusMessage)): ?>
+    <div class="send-successful"> <?php echo $statusMessage ?> </div>
+<?php endif; ?>
+
+<form id="contact-form" method="POST" action="">
+    <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Name" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+    </div>
+    <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
+    </div>
+    <button type="submit" class="button">Send Message</button>
+    <a class="button" href="homepage.php">Back to Home</a>
+</form>
+
+<!-- Retrieve template -->
+<?php include 'dashboard.php'; ?>
     
 </div>
