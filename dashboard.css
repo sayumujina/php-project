@@ -15,12 +15,12 @@ body {
 
 .welcome {
     text-align: center;
-    margin-bottom: 20px; /* Space below the welcome message */
+    margin-bottom: 20px; 
 }
 
 .welcome h1 {
-    font-size: 2.5em; /* Larger font size for emphasis */
-    color: #000000; /* Primary color for welcome message */
+    font-size: 2.5em; 
+    color: #000000; 
     text-align: center;
 }
 
@@ -136,12 +136,12 @@ input[type="password"]{
 
 .posts { 
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px; /* Space between cells */
+    gap: 20px;
     border: 1px solid #dee2e6;
     border-radius: 5px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px; /* Space between posts */
+    margin-bottom: 20px; 
 }
 
 .success{

@@ -3,10 +3,11 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Website Header</title>
+    <title>Dashboard</title>
+    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>

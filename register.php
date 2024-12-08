@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Hash the password for security
+    // Hash the password 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)"); // Prepare an insert statement with placeholders
         $stmt->execute([$username, $email, $hashed_password]);
         $register_complete = "Registration successful!";
         // Reset fields after successful submission
@@ -73,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 <div class="container">
     <h1>Overflow</h1>
-    
     <div id="register-form">
         <form action="register.php" method="POST">
             <!-- Display success message if registration is successful -->
@@ -84,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="error"><?php echo $error; ?></div>
             <?php endif; ?>
             
+            <!-- Registration form -->
             <div class="form-group">
                 <i class="bi bi-person" ></i><input type="text" class="form-control" name="username" placeholder="Username" required value="<?php echo htmlspecialchars($username); ?>">
             </div>
@@ -96,14 +96,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <i class="bi bi-lock" ></i><input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
             
+            <!-- Register button -->
             <button type="submit" class="btn">Register</button>
         </form>
     </div>
     
+    <!-- Link to login page -->
     <div class="link-container">
         <p><b>Already have an account? </b><a href="login.php">Login Here</a></p>
     </div>
 
-<?php include 'style.php'; ?>
+    <!-- Include styling template -->
+    <?php include 'style.php'; ?>
 </body>
 </html>

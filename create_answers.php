@@ -19,7 +19,7 @@ if (isset($_GET['post_id'])) {
         $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
         $stmt->execute();
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    // Handle errors
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
         exit;
@@ -126,7 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
-    
+        
+    <!-- Include styling template -->
     <?php include 'dashboard.php'; ?>
 </body>
 </html>

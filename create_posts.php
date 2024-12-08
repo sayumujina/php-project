@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $module_id = $_POST['module_id'];
     $creation_date = (new DateTime())->format('Y-m-d H:i:s');
 
-    // Insert post to the database'
+    // Insert post to the database
     if (!empty($title) && !empty($content)) {
         try {
             $query = "INSERT INTO posts (user_id, username, title, content, module_id, creation_date) VALUES (:user_id, :username, :title, :content, :module_id, :creation_date)";
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
     // Fetch modules from the database
-    $query = "SELECT module_name FROM module";
+    $query = "SELECT module_id, module_name FROM module";
     $stmt = $pdo->query($query);
 ?>
 
@@ -94,18 +94,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <select name="module_id" id="module_id">
                     <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                         <!-- Makes the module names visible -->
-                        <option value="<?php echo $row['module_name']; ?>"><?php echo $row['module_name']; ?></option>
+                        <option value="<?php echo $row['module_id']; ?>"><?php echo $row['module_name']; ?></option>
                     <?php endwhile; ?>
+                </select>
             </div>
             <button type="submit" class="button">Submit Post</button>
         </form>
 
+        <!-- Back to dashboard button -->
         <div class="submit">
             <a href="index.php" class="button">Back to Dashboard</a>
         </div>
     </div>
 
-    <?php include 'style.php'; ?>
+    <!-- Include styling template -->
+    <?php include 'dashboard.php'; ?>
 </body>
 </html>
 

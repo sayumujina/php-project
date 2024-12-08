@@ -25,10 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!doctype html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create New Post</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Post</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <style>
 
     .contact-panel {
@@ -76,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         margin-top: 1rem;
     }
 
-
     @media (max-width: 768px) {
         .contact-panel {
             padding: 1.5rem;
@@ -88,32 +88,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 </style>
-
-<div class="contact-panel">
-<h2>Contact Admin</h2>
-<!-- Display the status message -->
-<?php if (!empty($statusMessage)): ?>
-    <div class="send-successful"> <?php echo $statusMessage ?> </div>
-<?php endif; ?>
-
-<form id="contact-form" method="POST" action="">
-    <div class="form-group">
-        <label for="name">Your Name</label>
-        <input type="text" id="name" name="name" class="form-control" placeholder="Name" required>
-    </div>
-    <div class="form-group">
-        <label for="email">Your Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
-    </div>
-    <div class="form-group">
-        <label for="message">Your Message</label>
-        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
-    </div>
-    <button type="submit" class="button">Send Message</button>
-    <a class="button" href="homepage.php">Back to Home</a>
-</form>
-
-<!-- Retrieve template -->
-<?php include 'dashboard.php'; ?>
+<body>
+    <div class="contact-panel">
+    <h2>Contact Admin</h2>
+    <!-- Display the status message -->
+    <?php if (!empty($statusMessage)): ?>
+        <div class="send-successful"> <?php echo $statusMessage ?> </div>
+    <?php endif; ?>
     
-</div>
+    <!-- Form to contact admin -->
+    <form id="contact-form" method="POST" action="">
+        <!-- Name input -->
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Name" required>
+        </div>
+        <!-- Email input -->
+        <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+        </div>
+        <!-- Message input -->
+        <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
+        </div>
+        <!-- Submit button -->
+        <button type="submit" class="button">Send Message</button>
+        <a class="button" href="homepage.php">Back to Home</a>
+    </form>        
+    </div>
+
+    <!-- Include styling template -->
+    <?php include 'dashboard.php'; ?>
+</body>

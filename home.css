@@ -1,4 +1,3 @@
-/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +19,6 @@ body {
         }
 }
 
-/* Container */
 .container {
     width: 90%;
     max-width: 800px;
@@ -31,7 +29,6 @@ body {
     overflow: hidden;
 }
 
-/* Header */
 .header {
     background: rgb(174,144,106);
     color: #fff;
@@ -52,7 +49,6 @@ body {
     font-size: 1rem;
 }
 
-/* Navigation */
 .navigation {
     display: flex;
     justify-content: space-around;
@@ -85,7 +81,6 @@ body {
     transform: scale(0.98);
 }
 
-/* Main Content */
 .main-content {
     padding: 2rem;
 }
@@ -103,7 +98,6 @@ body {
     color: #666;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 768px) {
     .container {
         width: 95%;

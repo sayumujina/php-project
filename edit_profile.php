@@ -1,24 +1,23 @@
 <?php 
 session_start(); // Start the session
+include 'db_connect.php';
+
 if (!isset($_SESSION['session_id'])) {
     header('Location: login.php'); // Redirect to login if not logged in
     exit;
 }
 
-// Include the PDO connection file
-include 'db_connect.php';
-
 $user_id = $_SESSION['session_id'];
 $error = ""; // Variable to store error messages
 
-// Handle profile update form submission
+// Handle profile update
 if (isset($_POST['update'])) {
     $email = $_POST['email'];
     $current_password = $_POST['password'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Retrieve current password from the database
+    // Fetch the current password from the database
     $query = "SELECT password FROM users WHERE id = :id";
     $stmt = $pdo->prepare($query); // Prepare the query
     $stmt->bindParam(':id', $user_id); // Bind the user ID
@@ -30,7 +29,7 @@ if (isset($_POST['update'])) {
     if (!password_verify($current_password, $db_password)) {
         $error = "Your current password is incorrect."; // Error message if wrong password
     } else {
-        // Check if new password and confirm password match
+        // Check if passwords match
         if ($new_password === $confirm_password) {
             // Update user profile, including name, email, and password
             $new_password_hashed = password_hash($new_password, PASSWORD_BCRYPT);
@@ -72,6 +71,7 @@ if (isset($_POST['delete_account'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         h1 {
             text-align: center;
@@ -111,12 +111,13 @@ if (isset($_POST['delete_account'])) {
             <a href="homepage.php" class="button">Back to Home</a>
         </div>
 
-        <!-- Form to delete the user account -->
+        <!-- Form to delete the user account, with a confirmation from users -->
         <form method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
             <button type="submit" class="button" style="background-color: red; max-width: 180px;" name="delete_account">Delete Account</button>
         </form>
     </div>
 
+    <!-- Include styling template -->
     <?php include 'dashboard.php'; ?> 
 </body>
 </html>

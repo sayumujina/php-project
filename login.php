@@ -2,37 +2,37 @@
 include 'db_connect.php'; 
 session_start(); // Start the session
 
-    // Variables
-    $username = '';
-    $password = '';
-    $error = '';
+// Variables
+$username = '';
+$password = '';
+$error = '';
 
-    // Process the login form
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+// Process the login form
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-        // Fetch user using input
-        try {
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
-            $stmt->execute([$username]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Fetch user using input
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Check if user exists and password is correct and set session variables if true
-            if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['session_id'] = $user['id'];
-                $_SESSION['session_username'] = $user['username'];
-                // Redirect to homepage after successful login
-                header('Location: homepage.php'); 
-                exit;
-            // Display error message if user does not exist or password is incorrect
-            } else {
-                $error_message = "Incorrect username or password!";
-            }
-        } catch (PDOException $e) {
-            $error= "An error occurred: " . $e->getMessage();
+        // Check if user exists and password is correct and set session variables if true
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['session_id'] = $user['id'];
+            $_SESSION['session_username'] = $user['username'];
+            // Redirect to homepage after successful login
+            header('Location: homepage.php'); 
+            exit;
+        // Display error message if user credentials are wrong
+        } else {
+            $error_message = "Incorrect username or password!";
         }
+    } catch (PDOException $e) {
+        $error= "An error occurred: " . $e->getMessage();
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -76,6 +76,7 @@ session_start(); // Start the session
                 <div class="error-message"><?php echo $error_message; ?></div>
             <?php endif; ?>
             
+            <!-- Login form -->
             <div class="form-group">
                 <i class="bi bi-person"></i><input type="text" class="form-control" name="username" placeholder="Username" required>
             </div>
@@ -84,14 +85,17 @@ session_start(); // Start the session
                 <i class="bi bi-lock"></i><input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
             
+            <!-- Login button -->
             <button type="submit" class="btn">Login</button>
         </form>
     </div>
     
+    <!-- Link to register page -->
     <div class="link-container">
         <p><b>or </b><a href="register.php">Register here</a></p>
     </div>
 
+    <!-- Include styling template -->
     <?php include 'style.php'; ?>
 
 </body>
