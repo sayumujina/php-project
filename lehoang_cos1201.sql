@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2024 at 10:05 AM
+-- Generation Time: Dec 09, 2024 at 09:40 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,7 +49,8 @@ INSERT INTO `answers` (`answer_id`, `user_id`, `username`, `post_id`, `content`,
 (6, 1, 'Anonymous', 17, 'dasda', '2024-12-07 13:37:10'),
 (7, 12, 'Anonymous', 19, 'sadsa', '2024-12-07 13:46:44'),
 (8, 12, 'skibidi', 37, 'fdfd', '2024-12-08 09:44:06'),
-(9, 12, 'skibidi', 37, '1234', '2024-12-08 09:44:09');
+(9, 12, 'skibidi', 37, '1234', '2024-12-08 09:44:09'),
+(10, 13, 'skibidi', 41, 'hi chat', '2024-12-09 09:39:36');
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,7 @@ CREATE TABLE `posts` (
   `username` text NOT NULL,
   `title` text NOT NULL,
   `content` text NOT NULL,
-  `module_id` text NOT NULL,
+  `module_id` int(11) NOT NULL,
   `creation_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -94,9 +95,12 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `user_id`, `username`, `title`, `content`, `module_id`, `creation_date`) VALUES
-(34, 12, 'skibidi', 'hi hguiys', 'iii', 'Project Management', '2024-12-08 09:41:06'),
-(35, 12, 'skibidi', 'data1', '334', 'Project Management', '2024-12-08 09:42:45'),
-(38, 13, 'skibidi', 'sdsd', 'sdsdsds', '4', '2024-12-08 09:54:14');
+(34, 12, 'skibidi', 'hi hguiys', 'iii', 0, '2024-12-08 09:41:06'),
+(35, 12, 'skibidi', 'data1', '334', 0, '2024-12-08 09:42:45'),
+(38, 13, 'skibidi', 'sdsd', 'sdsdsds', 4, '2024-12-08 09:54:14'),
+(39, 13, 'skibidi', 'sss', 'ssss', 1, '2024-12-09 08:50:47'),
+(40, 13, 'skibidi', 'hi chat', '12345', 5, '2024-12-09 08:51:41'),
+(41, 13, 'skibidi', 'siiiiiiiiiiiiiii', 'isiuuuu', 1, '2024-12-09 09:39:26');
 
 -- --------------------------------------------------------
 
@@ -139,7 +143,9 @@ INSERT INTO `users` (`id`, `email`, `username`, `password`) VALUES
 -- Indexes for table `answers`
 --
 ALTER TABLE `answers`
-  ADD PRIMARY KEY (`answer_id`);
+  ADD PRIMARY KEY (`answer_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `post_id` (`post_id`);
 
 --
 -- Indexes for table `module`
@@ -151,7 +157,9 @@ ALTER TABLE `module`
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
-  ADD PRIMARY KEY (`post_id`);
+  ADD PRIMARY KEY (`post_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `module_id` (`module_id`);
 
 --
 -- Indexes for table `users`
@@ -167,7 +175,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `module`
@@ -179,7 +187,7 @@ ALTER TABLE `module`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `users`
