@@ -14,17 +14,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Hash the password 
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
     try {
-        $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)"); // Prepare an insert statement with placeholders
-        $stmt->execute([$username, $email, $hashed_password]);
-        $register_complete = "Registration successful!";
-        // Reset fields after successful submission
-        $username = '';
-        $email = '';
-        $password = '';
+        // Check if the email already exists
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $emailExists = $stmt->fetchColumn();
+
+        // Hash the password 
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        if ($emailExists) {
+            $error = "This email is already registered.";
+        } else {
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)"); // Prepare an insert statement with placeholders
+            $stmt->execute([$username, $email, $hashed_password]);
+            $register_complete = "Registration successful!";
+            // Reset fields after successful submission
+            $username = '';
+            $email = '';
+            $password = '';
+        }
     } catch (PDOException $e) {
         $error = "An error occurred: " . $e->getMessage();
     }
