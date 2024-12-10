@@ -79,7 +79,7 @@ $modules = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <label for="module_name_add" class="form-label">Module Name</label>
             <input type="text" name="module_name" id="module_name_add" class="form-control" required>
         </div>
-        <button type="submit" name="action" value="add" class="button button-primary">Add Module</button>
+        <button type="submit" name="action" value="add" class="button">Add Module</button>
     </form>
 
     <!-- Edit Module -->
@@ -98,7 +98,7 @@ $modules = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <label for="module_name_edit" class="form-label">New Module Name</label>
             <input type="text" name="module_name" id="module_name_edit" class="form-control" required>
         </div>
-        <button type="submit" name="action" value="edit" class="button button-warning">Edit Module</button>
+        <button type="submit" name="action" value="edit" class="button">Edit Module</button>
     </form>
 
     <!-- Delete Module -->
@@ -113,10 +113,10 @@ $modules = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </select>
         </div>
-        <button type="submit" name="action" value="delete" class="button button-danger">Delete Module</button>
+        <button type="submit" name="action" value="delete" class="button">Delete Module</button>
     </form>
 
-    <a href="index.php" class="button button-secondary mt-3">Back to Dashboard</a>
+    <a href="index.php" class="button">Back to Dashboard</a>
 
     <!-- Include styling template -->
     <?php include 'dashboard.php'; ?>
