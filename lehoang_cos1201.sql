@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2024 at 09:55 AM
+-- Generation Time: Dec 10, 2024 at 05:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,8 +49,7 @@ INSERT INTO `answers` (`answer_id`, `user_id`, `username`, `post_id`, `content`,
 (6, 1, 'Anonymous', 17, 'dasda', '2024-12-07 13:37:10'),
 (7, 12, 'Anonymous', 19, 'sadsa', '2024-12-07 13:46:44'),
 (8, 12, 'skibidi', 37, 'fdfd', '2024-12-08 09:44:06'),
-(9, 12, 'skibidi', 37, '1234', '2024-12-08 09:44:09'),
-(10, 13, 'skibidi', 41, 'hi chat', '2024-12-09 09:39:36');
+(9, 12, 'skibidi', 37, '1234', '2024-12-08 09:44:09');
 
 -- --------------------------------------------------------
 
@@ -68,11 +67,12 @@ CREATE TABLE `module` (
 --
 
 INSERT INTO `module` (`module_id`, `module_name`) VALUES
-(1, 'OOP'),
-(2, 'PHP'),
-(3, 'UI-UX'),
+(3, 'ui-ux'),
 (4, 'Project Management'),
-(5, '34');
+(5, 'module_5'),
+(6, 'module_6'),
+(8, 'OOP'),
+(9, 'PHP');
 
 -- --------------------------------------------------------
 
@@ -95,12 +95,9 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `user_id`, `username`, `title`, `content`, `module_id`, `creation_date`) VALUES
-(34, 12, 'skibidi', 'hi hguiys', 'iii', 0, '2024-12-08 09:41:06'),
-(35, 12, 'skibidi', 'data1', '334', 0, '2024-12-08 09:42:45'),
-(38, 13, 'skibidi', 'sdsd', 'sdsdsds', 4, '2024-12-08 09:54:14'),
-(39, 13, 'skibidi', 'sss', 'ssss', 1, '2024-12-09 08:50:47'),
-(40, 13, 'skibidi', 'hi chat', '12345', 5, '2024-12-09 08:51:41'),
-(41, 13, 'skibidi', 'siiiiiiiiiiiiiii', 'isiuuuu', 1, '2024-12-09 09:39:26');
+(53, 27, 'sayumujina123', 'test', '1234123', 3, '2024-12-10 16:45:04'),
+(54, 27, 'sayumujina123', 'another test', '1', 8, '2024-12-10 16:47:25'),
+(55, 27, 'sayumujina123', 'php question', '12345', 3, '2024-12-10 17:04:10');
 
 -- --------------------------------------------------------
 
@@ -129,11 +126,10 @@ INSERT INTO `users` (`id`, `email`, `username`, `password`) VALUES
 (7, 'hoanglgcs230365@fpt.edu.vn', 'sayu', '$2y$10$yL5TLwIQ/k0HeQiagdQZHOaYHbcHg9N14hk/fulLcYEz16JmytMNm'),
 (8, 'hoanglgcs230365@fpt.edu.vn', 'sayu', '$2y$10$3l0B8jT71WXIw8r2tZuoeOh0FuhpdyRtMuglwrFeYatTYN5AVYP2S'),
 (9, 'hoanglgcs230365@fpt.edu.vn', 'sayu', '$2y$10$/G8H1I4xKfyg9tiJFm.7..t7IB5s0X562xA/s0ZqdwulZYcK8vRuC'),
-(10, 'lh8081j@gre.ac.uk', 'sayu', '$2y$10$Y/LC.KGHo/sg4mMG/sASdebuJVuFNn6cFzLuP/zNsLEgvw9O883FO'),
-(11, 'gychorytplaysosu@gmail.com', 'sayu', '$2y$10$ZjavX/7pQyoc9gok3/8nle3qVAF57ntpgpZSbMV8tsqfdRX6fUmAW'),
-(13, 'lh8081j@gre.ac.uk', 'skibidi', '$2y$10$Fb21VurnsgUkk4TkgV0aGeXWwB/eH13c0X0pu4IZ3htXOX3uviQQ.'),
 (14, 'd@gmail.cpom', 'skibidi', '$2y$10$AdmlFaiBj51fpPS4.JRSFee71YyZFC6lOnawX0WymCuX2HyGbbeOO'),
-(15, 'hoanglgcs230365@fpt.edu.vn', 'skibidi', '$2y$10$YveBLbucm1eVTqKRBsaafuML6JxVaosN6c602h1OUc.p9AR/LJJLa');
+(18, '1234@gmail.commmm', 'sayumujina', '$2y$10$ie72UnOHrq39ZrVHpfdTSe6Q1BsuNIi8Pmnp.yarlrlE79CnTvrp2'),
+(23, '1234@gmail.com', 'sayumujina', '$2y$10$I1VbY21ox19q1XhLtVdE2.ZyXvTOipCdcY2ApmRmZJpetSWG0F0Q.'),
+(27, '123456789@gmail', 'sayumujina123', '$2y$10$1n2bBajk9DhQng3sd28npuwOmtc5g4/4T8QMH2sy8QZS2Awy5rapy');
 
 --
 -- Indexes for dumped tables
@@ -175,25 +171,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `module`
 --
 ALTER TABLE `module`
-  MODIFY `module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
