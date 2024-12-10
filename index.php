@@ -8,20 +8,22 @@ if (!isset($_SESSION['session_id'])) {
     exit;
 }
 
-// Search with title
+// Search with keyword
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : null;
+
+$search = [];
+$searchQuery = "WHERE 1 = 1"; // 1 = 1 is always true, therefore it works as a placeholder
+
 // Check for posts with the keyword
 if ($keyword) {
-    $query .= " AND (posts.title LIKE :keyword OR posts.content LIKE :keyword)";
+    $searchQuery .= " AND (posts.title LIKE :keyword OR posts.content LIKE :keyword)";
     $search[':keyword'] = '%' . $keyword . '%';
 }
 
 // Fetch data according to modules, newest post comes first
 $query = "SELECT posts.*, module.module_name FROM posts 
-    LEFT JOIN module ON posts.module_id = module.module_id WHERE 1 = 1 
+    LEFT JOIN module ON posts.module_id = module.module_id  $searchQuery  
     ORDER BY posts.creation_date DESC"; // 1 = 1 is always true, therefore it works as a placeholder
-
-$search = [];
 
 // Exceute searching
 try {
