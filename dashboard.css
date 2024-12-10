@@ -24,6 +24,12 @@ body {
     text-align: center;
 }
 
+h1 {
+    font-size: 2.5em; 
+    color: black; 
+    text-align: center;
+}
+
 form {
     display: flex;
     flex-direction: column;

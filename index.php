@@ -83,6 +83,7 @@ try {
             <a href="homepage.php" class="button">Home</a>
             <a href="create_posts.php" class="button">Create New Post</a>
             <a href="contact_admin.php" class="button">Contact Admin</a>
+            <a href="manage_modules.php" class="button">Manage Modules</a>
         </div>
 
         <!--Search -->

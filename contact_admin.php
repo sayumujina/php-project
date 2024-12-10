@@ -46,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .contact-panel h2 {
         text-align: center;
         font-size: 2rem;
-        color: rgb(174, 144, 106);
         margin-bottom: 1.5rem;
     }
 
