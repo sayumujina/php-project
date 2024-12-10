@@ -23,8 +23,8 @@ if ($keyword) {
 // Fetch data according to modules, newest post comes first
 $query = "SELECT posts.*, module.module_name FROM posts 
     LEFT JOIN module ON posts.module_id = module.module_id $searchQuery  
-    ORDER BY posts.creation_date DESC"; // 1 = 1 is always true, therefore it works as a placeholder
-
+    ORDER BY posts.creation_date DESC"; 
+    
 // Exceute searching
 try {
     $stmt = $pdo->prepare($query);
