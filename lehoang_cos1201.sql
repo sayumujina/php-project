@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2024 at 05:04 PM
+-- Generation Time: Dec 10, 2024 at 06:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,15 +41,7 @@ CREATE TABLE `answers` (
 --
 
 INSERT INTO `answers` (`answer_id`, `user_id`, `username`, `post_id`, `content`, `answer_date`) VALUES
-(1, 1, '', 17, 'sdsd', '0000-00-00 00:00:00'),
-(2, 1, '', 17, '2343244', '0000-00-00 00:00:00'),
-(3, 1, 'Anonymous', 19, 'sdfdsf', '0000-00-00 00:00:00'),
-(4, 1, 'Anonymous', 19, 'hi chat', '0000-00-00 00:00:00'),
-(5, 1, 'Anonymous', 17, 'gdfgdfg', '0000-00-00 00:00:00'),
-(6, 1, 'Anonymous', 17, 'dasda', '2024-12-07 13:37:10'),
-(7, 12, 'Anonymous', 19, 'sadsa', '2024-12-07 13:46:44'),
-(8, 12, 'skibidi', 37, 'fdfd', '2024-12-08 09:44:06'),
-(9, 12, 'skibidi', 37, '1234', '2024-12-08 09:44:09');
+(15, 35, 'sayumujina', 66, '123456', '2024-12-10 17:56:18');
 
 -- --------------------------------------------------------
 
@@ -67,12 +59,13 @@ CREATE TABLE `module` (
 --
 
 INSERT INTO `module` (`module_id`, `module_name`) VALUES
-(3, 'ui-ux'),
 (4, 'Project Management'),
 (5, 'module_5'),
-(6, 'module_6'),
-(8, 'OOP'),
-(9, 'PHP');
+(8, '123'),
+(12, 'php'),
+(13, 'PHP'),
+(14, 'OOP'),
+(15, 'UI_UX');
 
 -- --------------------------------------------------------
 
@@ -95,9 +88,9 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `user_id`, `username`, `title`, `content`, `module_id`, `creation_date`) VALUES
-(53, 27, 'sayumujina123', 'test', '1234123', 3, '2024-12-10 16:45:04'),
-(54, 27, 'sayumujina123', 'another test', '1', 8, '2024-12-10 16:47:25'),
-(55, 27, 'sayumujina123', 'php question', '12345', 3, '2024-12-10 17:04:10');
+(64, 35, 'sayumujina', 'php', 'php', 13, '2024-12-10 17:56:04'),
+(65, 35, 'sayumujina', 'oop', 'oop', 14, '2024-12-10 17:56:09'),
+(66, 35, 'sayumujina', 'ui', 'ui', 15, '2024-12-10 17:56:14');
 
 -- --------------------------------------------------------
 
@@ -117,19 +110,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`) VALUES
-(1, 'imestellia@gmail.com', 'sayu', '$2y$10$eSfqlpxBHmXa.4UIZbBegeLaaAMxtkj4.qJ8qtBBP9rf5Kx8FdSom'),
-(2, 'imestellia@gmail.com', 'sayu', '$2y$10$Z9o0AavqESwRNuS0R5Whv.5ktUykHyOmUHnBRosMpwTdaSnefy3Hu'),
-(3, 'imestellia@gmail.com', 'sayu', '$2y$10$uyjb.bggHPSJjuh8uQiqgOHNS6hSVTsmb6r6DWQyvxyNy4xaNma8e'),
-(4, 'gychorytplaysosu@gmail.com', 'sayu', '$2y$10$0tq9uBOQn9E09na0.Eo5Yerb4egOuw3xg1IQwxx5zzNtk/dzYxgwC'),
-(5, 'gychorytplaysosu@gmail.com', 'sayu', '$2y$10$iYRObxVF6JMea/O6r1moR.3gw3PEAPKKUcFwSUM74SdPwGtfPMH0i'),
-(6, 'gychorytplaysosu@gmail.com', 'sayu', '$2y$10$7OTn02ab1PbFIVgl73w60.i4q9dAVyFsKs.xfFZ2MW3gQmBKIUOKu'),
-(7, 'hoanglgcs230365@fpt.edu.vn', 'sayu', '$2y$10$yL5TLwIQ/k0HeQiagdQZHOaYHbcHg9N14hk/fulLcYEz16JmytMNm'),
-(8, 'hoanglgcs230365@fpt.edu.vn', 'sayu', '$2y$10$3l0B8jT71WXIw8r2tZuoeOh0FuhpdyRtMuglwrFeYatTYN5AVYP2S'),
-(9, 'hoanglgcs230365@fpt.edu.vn', 'sayu', '$2y$10$/G8H1I4xKfyg9tiJFm.7..t7IB5s0X562xA/s0ZqdwulZYcK8vRuC'),
-(14, 'd@gmail.cpom', 'skibidi', '$2y$10$AdmlFaiBj51fpPS4.JRSFee71YyZFC6lOnawX0WymCuX2HyGbbeOO'),
-(18, '1234@gmail.commmm', 'sayumujina', '$2y$10$ie72UnOHrq39ZrVHpfdTSe6Q1BsuNIi8Pmnp.yarlrlE79CnTvrp2'),
-(23, '1234@gmail.com', 'sayumujina', '$2y$10$I1VbY21ox19q1XhLtVdE2.ZyXvTOipCdcY2ApmRmZJpetSWG0F0Q.'),
-(27, '123456789@gmail', 'sayumujina123', '$2y$10$1n2bBajk9DhQng3sd28npuwOmtc5g4/4T8QMH2sy8QZS2Awy5rapy');
+(28, 'imestellia@gmail.com', 'sayumujina123', '$2y$10$/FzK9Kcckxlidlu3w0I72efBahoDc0hkdf2zoJ2P8K0BVlLZeILcq'),
+(31, 'user1@gmail.com', 'user1', '$2y$10$8fPVeviCPDsMPRow6xIF5./Ny3jYzuUiLkaVHnOWw4r193V0X.0kW'),
+(32, 'sayumujina123@gmail.com', 'sayumujina123', '$2y$10$gHT8n51ngJgRAQXBFE2fGONQZz5nMV7ionio9lX2fQP2QXpcNWY4O'),
+(34, 'stellia@gmail.com', 'imestellia', '$2y$10$L20e9q.6oNdQJWC6A6GyeOsJNMm.B79zNF0sqcjDUtzlXh3YY7vgi'),
+(35, 'sayumujina@gmail.com', 'sayumujina', '$2y$10$5xEZELd0oqGGm/.YV33VtexHTt1d.7V86WiY1on5zbIFhy0NvlRSm');
 
 --
 -- Indexes for dumped tables
@@ -171,25 +156,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `module`
 --
 ALTER TABLE `module`
-  MODIFY `module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables
